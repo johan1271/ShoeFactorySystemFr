@@ -1,0 +1,27 @@
+@import '../../shared/colors.scss';
+.content-roles {
+    padding: 30px;
+    .content-main {
+        background-color: $white;
+        padding: 20px;
+        border-radius: 3px;
+        .content-form {
+            form {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                button {
+                    .mat-add {
+                        background-color: black;
+                        color: $white;
+                    }
+                }
+            }
+        }
+        .search-roles {
+            .search {
+                width: 100%;
+            }
+        }
+    }
+}

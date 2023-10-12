@@ -1,0 +1,26 @@
+@import '../../shared/colors.scss';
+.content-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: $dark-blue;
+    height: 40px;
+    .content-date {
+        span {
+            color: $white;
+        }
+    }
+    .content-end {
+        display: flex;
+        gap: 20px;
+        .content-user-rol {
+            //margin-right: 1rem;
+            color: $white;
+        }
+        .logout-icon {
+            cursor: pointer;
+            color: $white;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+@import '../../shared/colors.scss';
+.side-bar {
+    //padding: 10px;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    //background-color: aliceblue;
+    height: 100%;
+    border-right: 0.5px solid rgb(219, 219, 219);
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-color: 1px solid rgb(219, 219, 219);
+        background-color: rgb(20 127 20);
+        h4 {
+            margin: 0;
+            align-self: center;
+            color: $white;
+            //height: 40px;
+        }
+    }
+    .menu-items {
+        background-color: $white;
+        .item {
+            height: 40px;
+            align-items: center;
+            /* justify-content: space-evenly; */
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            cursor: pointer;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+            ;
+            &:hover {
+                background-color: rgb(209, 209, 209);
+                //color: $white;
+            }
+        }
+    }
+}
+
+li {
+    list-style: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
