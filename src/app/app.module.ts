@@ -19,6 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule} from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { EditRoleDialogComponent } from './core/components/roles/components/edit-role-dialog/edit-role-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { MatTableModule } from '@angular/material/table';
     ProductionComponent,
     RolesComponent,
     UsersComponent,
-    SearchProductionComponent
+    SearchProductionComponent,
+    EditRoleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
-    MatTableModule 
+    MatTableModule ,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
