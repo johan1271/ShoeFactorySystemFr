@@ -6,12 +6,18 @@
     //grid-gap: 20px;
     /* Espacio entre el sidebar y el contenido principal */
     height: 100%;
+    overflow-y: hidden;
+    /* Hide vertical scrollbar */
+    overflow-x: hidden;
+    /* Hide horizontal scrollbar */
     .content-dinamic {
         display: grid;
         grid-template-rows: 60px 1fr;
         height: 100%;
         .content-dinamic-page {
             background-color: $background-color;
+            display: block;
+            height: 100%;
         }
     }
 }

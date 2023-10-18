@@ -1,31 +1,24 @@
-<div class="content-roles">
+<div class="dynamic-content">
 
     <h1>Roles</h1>
 
     <div class="content-main">
         <div class="content-form">
-            <form [formGroup]="options">
-                <mat-form-field [floatLabel]="getFloatLabelValue()" class="name-rol">
-                    <mat-label>Nombre del rol</mat-label>
-                    <input matInput placeholder="">
-                </mat-form-field>
-
-                <button mat-raised-button color="add">
-                    <mat-icon>save</mat-icon>
-                    Nuevo rol
-                </button>
-
-            </form>
-        </div>
-        <div class="search-roles">
             <mat-form-field class="search">
                 <mat-label>Buscar</mat-label>
                 <input matInput placeholder="Ex. 12345678-9">
             </mat-form-field>
+
+            <button mat-raised-button color="add" (click)="openCreateRoleDialog()">
+                <mat-icon>save</mat-icon>
+                Nuevo rol
+            </button>
+
         </div>
+
         <div class="content-table">
 
-            <table mat-table [dataSource]="roles" class="table-roles">
+            <table mat-table [dataSource]="roles" class="table">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> ID </th>
                     <td mat-cell *matCellDef="let role" class="row-table" (click)="$event.stopPropagation()"> {{role.id}} </td>

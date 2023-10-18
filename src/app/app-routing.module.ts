@@ -9,12 +9,14 @@ import { SearchProductionComponent } from './core/components/search-production/s
 const routes: Routes = [
  
   //{path: '**', redirectTo: '', pathMatch: 'full'},
+  {path: '', component: UsersComponent},
   {path:'products', component: ProductsComponent},
   {path: 'users', component: UsersComponent},
   {path: 'roles', component: RolesComponent},
   {path: 'production', component: ProductionComponent},
   {path: 'search-production', component: SearchProductionComponent},
   {path:'**', redirectTo:'', pathMatch:'full'},
+  
 
 ];
 

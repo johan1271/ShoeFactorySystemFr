@@ -21,6 +21,10 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { EditRoleDialogComponent } from './core/components/roles/components/edit-role-dialog/edit-role-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { EditProductDialogComponent } from './core/components/products/components/edit-product-dialog/edit-product-dialog.component';
+
+
+
 
 
 @NgModule({
@@ -33,7 +37,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     RolesComponent,
     UsersComponent,
     SearchProductionComponent,
-    EditRoleDialogComponent
+    EditRoleDialogComponent,
+    EditProductDialogComponent,
+    
+    
   ],
   imports: [
     BrowserModule,

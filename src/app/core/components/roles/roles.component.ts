@@ -55,6 +55,22 @@ export class RolesComponent {
         // Aquí puedes realizar acciones con los datos editados, si es necesario
       }
     });
+
+  }
+
+  openCreateRoleDialog(): void {
+    const dialogRef = this.dialog.open(EditRoleDialogComponent, {
+      width: '300px', // Personaliza el ancho según tus necesidades
+      data: {}, // Puedes pasar datos al componente de diálogo
+    });
+  
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        console.log(result);
+        // Aquí puedes realizar acciones con los datos editados, si es necesario
+      }
+    });
+
   }
 
   

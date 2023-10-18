@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+<div mat-dialog-content>
+    <form #editForm="ngForm" [formGroup]="productForm">
+        <mat-form-field>
+            <input matInput type="text" formControlName="name" name="name" placeholder="Nombre del producto">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" formControlName="price" name="price" placeholder="Precio">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" formControlName="unitCompensation" name="unitCompensation" placeholder="Compensación unitaria">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" formControlName="packageCompensation" name="packageCompensation" placeholder="Compensación de paquete">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" formControlName="kind" name="kind" placeholder="Tipo">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions class="footer-btns">
+    <button mat-button (click)="onCancelClick()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSaveClick()">Guardar</button>
+</div>
