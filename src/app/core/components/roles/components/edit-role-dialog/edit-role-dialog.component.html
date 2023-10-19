@@ -1,14 +1,16 @@
 <h2 mat-dialog-title>Editar Rol</h2>
-<div mat-dialog-content>
+<div mat-dialog-content class="content-form">
 
-    <form [formGroup]="roleForm">
+    <form [formGroup]="roleForm" class="form">
         <mat-form-field>
+            <mat-label>Nombre del rol</mat-label>
             <input matInput type="text" formControlName="name" name="name" placeholder="Nombre del rol">
+            <mat-error *ngIf="roleForm.get('name')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
 
     </form>
 </div>
 <div mat-dialog-actions class="footer-btns">
     <button mat-button (click)="onCancelClick()">Cancelar</button>
-    <button mat-raised-button color="primary" class="save-btn" (click)="onSaveClick()">Guardar</button>
+    <button mat-raised-button color="primary" class="save-btn" (click)="onSaveClick()">{{ isCreating ? 'Crear' : 'Guardar' }}</button>
 </div>

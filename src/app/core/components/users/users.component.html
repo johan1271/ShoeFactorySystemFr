@@ -1,1 +1,71 @@
-<p>users works!</p>
+<div class="dynamic-content">
+
+    <h1>Usuarios</h1>
+
+    <div class="content-main">
+
+        <div class="content-form">
+            <mat-form-field class="search">
+                <mat-label>Buscar</mat-label>
+                <input matInput placeholder="Ex. 12345678-9">
+            </mat-form-field>
+
+            <button mat-raised-button class="new-btn" (click)="openEditDialog(true)">
+                <mat-icon>add</mat-icon>
+                Nuevo usuario
+            </button>
+
+        </div>
+        <div class="content-table">
+
+            <table mat-table [dataSource]="users" class="table">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef class="header-table"> ID </th>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.id}} </td>
+                </ng-container>
+
+                <!-- Columna "nombre del rol" -->
+                <ng-container matColumnDef="roleName">
+                    <th mat-header-cell *matHeaderCellDef class="header-table"> Rol </th>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.role.name}} </td>
+                </ng-container>
+
+                <!-- Columna "nombre del rol" -->
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef class="header-table"> Nombre</th>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.firstName}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef class="header-table"> Apellido</th>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.lastName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="active">
+                    <th mat-header-cell *matHeaderCellDef class="header-table"> Estado</th>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.active ? 'Activo' : 'No activo'}} </td>
+                </ng-container>
+
+
+                <!-- Columna "editar" -->
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef class="header-table"> Editar </th>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()">
+                        <button mat-icon-button (click)="openEditDialog(false,user)" class="edit-btn">
+                            <mat-icon class="edit-icon">edit</mat-icon>
+                        </button>
+
+
+                        <!-- Aquí puedes agregar un botón o un enlace para editar el usuario -->
+                        <!-- <button (click)="editarUsuario(user)">Editar</button> -->
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+        </div>
+    </div>
+
+</div>

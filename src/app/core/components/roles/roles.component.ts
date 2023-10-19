@@ -4,6 +4,7 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Role } from '../../models/interfaces';
 import { EditRoleDialogComponent } from './components/edit-role-dialog/edit-role-dialog.component';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-roles',
@@ -30,17 +31,23 @@ export class RolesComponent {
       "name": 'Ensamblador',
     },
   ];
-  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) {
+  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog, public _appService: AppService) { 
     
+  }
+
+  ngOnInit(): void {
+    //this.getRoles();
+  }
+
+  getRoles(): void {
+    this._appService.getRoles().subscribe((response: any) => {
+      console.log(response);
+      //this.products = response;
+    });
   }
 
   getFloatLabelValue(): FloatLabelType {
     return this.floatLabelControl.value || 'auto';
-  }
-
-  editRole(role: any) {
-    
-    console.log(role);
   }
 
   openRoleDialog(isCreating: boolean, role?: Role){
@@ -56,8 +63,6 @@ export class RolesComponent {
       console.log('The dialog was closed');
       console.log(result);
     });
-  
-
   }
 
   

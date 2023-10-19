@@ -5,7 +5,7 @@ export interface Role {
 
 export interface User {
     id: number;
-    name: string;
+    firstName: string;
     lastName: string;
     role: Role;
     active: boolean;

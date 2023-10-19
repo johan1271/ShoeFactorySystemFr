@@ -23,6 +23,9 @@ import { EditRoleDialogComponent } from './core/components/roles/components/edit
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditProductDialogComponent } from './core/components/products/components/edit-product-dialog/edit-product-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditUserDialogComponent } from './core/components/users/components/edit-user-dialog/edit-user-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -40,6 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     SearchProductionComponent,
     EditRoleDialogComponent,
     EditProductDialogComponent,
+    EditUserDialogComponent,
     
     
   ],
@@ -57,6 +61,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule ,
     MatDialogModule,
     HttpClientModule,
+    MatSelectModule, // Agrega esta línea para el select (mat-select)
+    MatRadioModule, 
   ],
   providers: [],
   bootstrap: [AppComponent]

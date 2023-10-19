@@ -100,6 +100,11 @@ export class ProductsComponent {
   constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { }
 
   ngOnInit(): void {
+    //this.getProducts();
+  }
+
+
+  getProducts(): void {
     this._appService.getProducts().subscribe((response: any) => {
       console.log(response);
       //this.products = response;

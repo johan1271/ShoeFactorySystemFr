@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+<div mat-dialog-content class="content-form">
+    <form [formGroup]="userForm" class="form">
+        <mat-form-field floatLabel="always">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="firstName" name="name" placeholder="Nombre">
+            <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+            <mat-label>Apellido</mat-label>
+            <input matInput type="text" formControlName="lastName" name="lastName" placeholder="Apellido">
+            <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="role">
+                <mat-option value="1">Administrador</mat-option>
+                <mat-option value="2">Empleado</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="radio-buttons">
+            <label>Estado:</label>
+            <mat-radio-group formControlName="status">
+                <mat-radio-button value="true">Activo</mat-radio-button>
+                <mat-radio-button value="false">Inactivo</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+    </form>
+</div>
+<div mat-dialog-actions class="footer-btns">
+    <button mat-button (click)="onCancelClick()">Cancelar</button>
+    <button mat-raised-button color="primary" class="save-btn" (click)="onSaveClick()">{{ isCreating ? 'Crear' : 'Guardar' }}</button>
+</div>

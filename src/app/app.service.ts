@@ -16,6 +16,16 @@ export class AppService {
     return this.http.get(`${this.apiUrl}products/`,httpOptions);
   }
 
+  getUsers(): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(`${this.apiUrl}users/`,httpOptions);
+  }
+
+  getRoles(): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(`${this.apiUrl}roles/`,httpOptions);
+  }
+
   public getHeaders(): any {
     let headers = new HttpHeaders({
         'Content-Type': 'application/json',

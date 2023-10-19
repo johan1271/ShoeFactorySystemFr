@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Role } from 'src/app/core/models/interfaces';
 
@@ -21,7 +21,7 @@ export class EditRoleDialogComponent {
     this.dialogTitle = this.isCreating ? 'Crear rol' : 'Editar rol';
     
     this.roleForm = this._formBuilder.group({
-      name: [this.role.name],
+      name: [this.role.name, [ Validators.required, Validators.minLength(3), Validators.maxLength(50) ]],
       
     }); 
 
@@ -34,6 +34,21 @@ export class EditRoleDialogComponent {
   onSaveClick(): void {
     // Puedes realizar acciones de guardado aquí, por ejemplo, enviar el formulario al servidor
     
+    if(this.roleForm.invalid){
+      // Marca todos los campos como tocados para que se muestren los mensajes de error
+      this.roleForm.markAllAsTouched();
+      return;
+    }
+
     this.dialogRef.close(this.role);
+  }
+
+  getErrorMessage() {
+
+    if (this.roleForm) {
+      return 'Este campo es obligatorio';
+    }
+    // Agrega más lógica de validación personalizada aquí según tus requisitos
+    return '';
   }
 }
