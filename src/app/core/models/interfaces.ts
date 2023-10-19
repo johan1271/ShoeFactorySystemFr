@@ -22,9 +22,18 @@ export interface Product {
 
 export interface Production {
     id: number;
-    date: Date;
+    date: string;
     product: Product;
     quantity: number;
     user: User;
+}
+
+export interface userProduction {
+    compensation: number;
+    employeeName: string;
+    productName: string;
+    percentage: number;
+    quantity: number;
+    price: number;
 }
 
