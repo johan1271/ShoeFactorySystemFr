@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { EditRoleDialogComponent } from './core/components/roles/components/edit-role-dialog/edit-role-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditProductDialogComponent } from './core/components/products/components/edit-product-dialog/edit-product-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -54,7 +55,8 @@ import { EditProductDialogComponent } from './core/components/products/component
     MatIconModule,
     MatButtonModule,
     MatTableModule ,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

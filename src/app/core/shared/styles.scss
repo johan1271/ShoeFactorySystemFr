@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    height: calc(100% - 163px);
+    height: calc(100% - 100px);
     h1 {
         margin: 0;
     }
@@ -25,6 +25,13 @@
             .search {
                 width: 90%;
             }
+            .new-btn {
+                background-color: $color-default-btn;
+                color: $white;
+                &:hover {
+                    background-color: $color-btn-hover;
+                }
+            }
         }
         .content-table {
             overflow-y: auto;
@@ -38,7 +45,7 @@
                     font-weight: bold;
                     text-align: center;
                     padding: 10px;
-                    font-size: 17px;
+                    font-size: 14px;
                 }
                 .row-table {
                     text-align: center;
@@ -53,18 +60,12 @@
                 background: #f1f1f1;
             }
             &::-webkit-scrollbar-thumb {
-                background: #a09e9e;
+                background: $color-dark-bg;
             }
         }
     }
 }
 
-// .content-table::-webkit-scrollbar {
-//     width: 10px;
-// }
-// .content-table::-webkit-scrollbar-thumb {
-//     background: #c25050;
-// }
 .fa-pen-to-square {
     cursor: pointer;
 }
@@ -72,7 +73,28 @@
 .edit-btn {
     .edit-icon {
         font-size: 18px;
-        color: #007bff;
+        color: $color-btn-hover;
+    }
+}
+
+//estilos para el form
+.content-form {
+    .form {
+        mat-form-field {
+            width: 260px;
+        }
+    }
+}
+
+.footer-btns {
+    justify-content: end;
+    padding: 0 20px 20px 20px;
+    .save-btn {
+        background-color: $color-btn-hover;
+        color: $white;
+        &:hover {
+            background-color: $color-dark-bg;
+        }
     }
 }
 

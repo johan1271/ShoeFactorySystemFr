@@ -43,33 +43,20 @@ export class RolesComponent {
     console.log(role);
   }
 
-  openEditDialog(role: Role): void {
+  openRoleDialog(isCreating: boolean, role?: Role){
     const dialogRef = this.dialog.open(EditRoleDialogComponent, {
-      width: '300px', // Personaliza el ancho según tus necesidades
-      data: role, // Puedes pasar datos al componente de diálogo
-    });
-  
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        console.log(result);
-        // Aquí puedes realizar acciones con los datos editados, si es necesario
-      }
+      width: '313px',
+      data: {
+        isCreating, 
+        role: role ? role : {} 
+      },
     });
 
-  }
-
-  openCreateRoleDialog(): void {
-    const dialogRef = this.dialog.open(EditRoleDialogComponent, {
-      width: '300px', // Personaliza el ancho según tus necesidades
-      data: {}, // Puedes pasar datos al componente de diálogo
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
     });
   
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        console.log(result);
-        // Aquí puedes realizar acciones con los datos editados, si es necesario
-      }
-    });
 
   }
 

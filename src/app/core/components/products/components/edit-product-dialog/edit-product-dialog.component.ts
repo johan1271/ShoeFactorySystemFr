@@ -16,18 +16,16 @@ export class EditProductDialogComponent {
   productForm: FormGroup;
   constructor( public dialogRef: MatDialogRef<EditProductDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private _formBuilder: FormBuilder) { 
     this.isCreating = data.isCreating;
-    
     this.product = data.product;
     this.dialogTitle = this.isCreating ? 'Crear producto' : 'Editar producto';
     
     this.productForm = this._formBuilder.group({
-      name: [this.product.name, Validators.required],
-      price: [this.product.price, Validators.required],
-      unitCompensation: [this.product.unitCompensation, Validators.required],
-      packageCompensation: [this.product.packageCompensation, Validators.required],
+      name: [this.product.name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      price: [this.product.price, [ Validators.required, Validators.min(0)]],
+      unitCompensation: [this.product.unitCompensation,[ Validators.required, Validators.min(0)]],
+      packageCompensation: [this.product.packageCompensation, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       kind: [this.product.kind, Validators.required]
     });
-    
     
 
   }
@@ -39,22 +37,38 @@ export class EditProductDialogComponent {
   onSaveClick(): void {
     // Puedes realizar acciones de guardado aquí, por ejemplo, enviar el formulario al servidor
     if(this.productForm.invalid){
+      // Marca todos los campos como tocados para que se muestren los mensajes de error
+      this.productForm.markAllAsTouched();
       return;
     }
+
     const formData = this.productForm.value;
 
-    // Accede a los valores de los campos
-    const name = formData.name;
-    const price = formData.price;
-    const unitCompensation = formData.unitCompensation;
-    const packageCompensation = formData.packageCompensation;
-    const kind = formData.kind;
-    console.log('Nombre:', name);
-    console.log('Precio:', price);
-    console.log('Compensación unitaria:', unitCompensation);
-    console.log('Compensación de paquete:', packageCompensation);
-    console.log('Tipo:', kind);
+    // Crea un objeto con los datos del formulario
+    const product: Product = {
+      id: this.product.id,
+      name: formData.name,
+      price: formData.price,
+      unitCompensation: formData.unitCompensation,
+      packageCompensation: formData.packageCompensation,
+      kind: formData.kind
+    };
 
-    this.dialogRef.close(this.product);
+    
+
+    this.dialogRef.close({data: product, isCreating: this.isCreating});
+  }
+
+  getErrorMessage() {
+
+    if (this.productForm) {
+      
+      return 'Este campo es obligatorio';
+      
+      
+    }
+    // Agrega más lógica de validación personalizada aquí según tus requisitos
+  
+    return '';
   }
 }

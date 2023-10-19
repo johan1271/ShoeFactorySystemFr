@@ -1,12 +1,14 @@
 <h2 mat-dialog-title>Editar Rol</h2>
 <div mat-dialog-content>
-    <form #editForm="ngForm">
+
+    <form [formGroup]="roleForm">
         <mat-form-field>
-            <input matInput [(ngModel)]="role.name" name="name" placeholder="Nombre del Rol">
+            <input matInput type="text" formControlName="name" name="name" placeholder="Nombre del rol">
         </mat-form-field>
+
     </form>
 </div>
 <div mat-dialog-actions class="footer-btns">
     <button mat-button (click)="onCancelClick()">Cancelar</button>
-    <button mat-raised-button color="primary" (click)="onSaveClick()">Guardar</button>
+    <button mat-raised-button color="primary" class="save-btn" (click)="onSaveClick()">Guardar</button>
 </div>
