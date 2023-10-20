@@ -3,10 +3,9 @@
     <form [formGroup]="productionForm" class="form">
 
         <mat-form-field floatLabel="always">
-            <mat-label>Producto</mat-label>
-            <mat-select formControlName="product">
-                <mat-option value="1">Lengua</mat-option>
-                <mat-option value="2">Talon</mat-option>
+            <mat-label>Usuario</mat-label>
+            <mat-select formControlName="user">
+                <mat-option *ngFor="let user of users" [value]="user.id">{{ user.firstName }}</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -25,10 +24,9 @@
         </mat-form-field>
 
         <mat-form-field floatLabel="always">
-            <mat-label>Usuario</mat-label>
-            <mat-select formControlName="user">
-                <mat-option value="1">Daniel</mat-option>
-                <mat-option value="2">Manuel</mat-option>
+            <mat-label>Producto</mat-label>
+            <mat-select formControlName="product">
+                <mat-option *ngFor="let product of products" [value]="product.id">{{ product.name }}</mat-option>
             </mat-select>
         </mat-form-field>
 

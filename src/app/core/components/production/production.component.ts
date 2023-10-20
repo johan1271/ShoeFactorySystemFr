@@ -65,7 +65,7 @@ export class ProductionComponent {
           "name": 'Administrador'
         },
         "firstName": 'Morelia',
-        "lastName": 'MArtine',
+        "lastName": 'Martinez',
         "active": true,
       }
     },
