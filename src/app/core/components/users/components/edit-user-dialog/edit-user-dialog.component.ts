@@ -19,17 +19,14 @@ export class EditUserDialogComponent {
     this.dialogTitle = this.isCreating ? 'Crear usuario' : 'Editar usuario';
     
     this.userForm = this._formBuilder.group({
+      id: [this.user.id, [Validators.required]],
       firstName: [this.user.firstName, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       lastName: [this.user.lastName, [ Validators.required, Validators.min(2), Validators.maxLength(50)]],
-      role: [ this.user.role ? this.user.role.id.toString(): '', Validators.required],
-      status: [this.user.role ? this.user.active.toString() : '', Validators.required],
+      role: [ this.user.role ? this.user.role.id.toString(): '2', Validators.required],
+      status: [this.user.role ? this.user.active.toString() : 'true', Validators.required],
     });
     
 
-  }
-
-  onCancelClick(): void {
-    this.dialogRef.close();
   }
 
   onSaveClick(): void {
@@ -45,7 +42,7 @@ export class EditUserDialogComponent {
     // Crea un objeto con los datos del formulario
     console.log(formData)
     const user: User = {
-      id: this.user.id,
+      id: formData.id,
       firstName: formData.firstName,
       lastName: formData.lastName,
       role: {
@@ -54,6 +51,7 @@ export class EditUserDialogComponent {
       },
       active: formData.status === 'true' ? true : false,
     };
+    
     this.dialogRef.close({data: user, isCreating: this.isCreating});
   }
 

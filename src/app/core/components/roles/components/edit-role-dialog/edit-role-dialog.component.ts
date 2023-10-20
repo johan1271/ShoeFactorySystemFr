@@ -27,10 +27,6 @@ export class EditRoleDialogComponent {
 
   }
 
-  onCancelClick(): void {
-    this.dialogRef.close();
-  }
-
   onSaveClick(): void {
     // Puedes realizar acciones de guardado aquí, por ejemplo, enviar el formulario al servidor
     
@@ -40,7 +36,15 @@ export class EditRoleDialogComponent {
       return;
     }
 
-    this.dialogRef.close(this.role);
+    const formData = this.roleForm.value;
+
+    // Crea un objeto con los datos del formulario
+    const role: Role = {
+      id: this.role.id,
+      name: formData.name,
+    };
+
+    this.dialogRef.close({data: role, isCreating: this.isCreating});
   }
 
   getErrorMessage() {

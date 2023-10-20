@@ -26,13 +26,9 @@ export class EditProductDialogComponent {
       packageCompensation: [this.product.packageCompensation, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       kind: [this.product.kind, Validators.required]
     });
-    
-
   }
 
-  onCancelClick(): void {
-    this.dialogRef.close();
-  }
+  
 
   onSaveClick(): void {
     // Puedes realizar acciones de guardado aquí, por ejemplo, enviar el formulario al servidor

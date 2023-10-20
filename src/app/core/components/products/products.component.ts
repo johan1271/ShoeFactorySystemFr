@@ -19,7 +19,7 @@ export class ProductsComponent {
     floatLabel: this.floatLabelControl,
   });
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
-
+  search = '';
   products: Product[] = [
     {
       "id": 1,
@@ -127,27 +127,35 @@ export class ProductsComponent {
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
       if (result) {
-        console.log(result);
+        
 
         if(result.isCreating){
           this.products.push(result.data);
           
-          return;
-        }
-
-        const index = this.products.findIndex(p => p.id === result.data.id);
-        if (index !== -1) {
-          // Utiliza el método splice para reemplazar el objeto en esa posición
-          this.products.splice(index, 1, result.data);
-          
-          // Esto reemplazará el objeto en la posición 'index' con 'result'
+        } else{
+          const index = this.products.findIndex(p => p.id === result.data.id);
+          if (index !== -1) {
+            // Utiliza el método splice para reemplazar el objeto en esa posición
+            this.products.splice(index, 1, result.data);
+            // Esto reemplazará el objeto en la posición 'index' con 'result'
+          }
         }
         this.table.renderRows();
+
+        
+        
         // Aquí puedes realizar acciones con los datos editados, si es necesario
       }
     });
   }
 
+
+  searchProductById(event: Event){
+    const value = (event.target as HTMLInputElement).value;
+    console.log(value);
+    this.search = value;
+  }
   
 }

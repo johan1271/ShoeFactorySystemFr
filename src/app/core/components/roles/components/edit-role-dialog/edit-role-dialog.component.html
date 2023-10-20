@@ -11,6 +11,6 @@
     </form>
 </div>
 <div mat-dialog-actions class="footer-btns">
-    <button mat-button (click)="onCancelClick()">Cancelar</button>
+    <button mat-button mat-dialog-close>Cancelar</button>
     <button mat-raised-button color="primary" class="save-btn" (click)="onSaveClick()">{{ isCreating ? 'Crear' : 'Guardar' }}</button>
 </div>

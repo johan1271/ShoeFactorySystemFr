@@ -5,6 +5,7 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { MatTable } from '@angular/material/table';
 import { AppService } from 'src/app/app.service';
 import { Production } from '../../models/interfaces';
+import { EditProductionDialogComponent } from './components/edit-production-dialog/edit-production-dialog.component';
 
 @Component({
   selector: 'app-production',
@@ -17,7 +18,8 @@ export class ProductionComponent {
     floatLabel: this.floatLabelControl,
   });
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
-
+  search:string = '';
+  
   productions: Production[] = [
 
     {
@@ -68,7 +70,7 @@ export class ProductionComponent {
       }
     },
   ];
-
+  
   displayedColumns: string[] = ['id', 'date', 'nameProduct', 'quantity', 'userName', 'edit'];
 
   constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { }
@@ -91,35 +93,35 @@ export class ProductionComponent {
 
 
   openEditDialog(isCreating:boolean,production?: Production): void {
-    // const dialogRef = this.dialogProduct.open(EditUserDialogComponent, {
-    //   width: '313px', // Personaliza el ancho según tus necesidades
-    //   data: {
-    //     isCreating, 
-    //     production: production ? production : {} 
-    //   }, // Puedes pasar datos al componente de diálogo
-    //   //position: { top: '60px', left: '60px' }
-    // });
+    const dialogRef = this.dialogProduct.open(EditProductionDialogComponent, {
+      width: '313px', // Personaliza el ancho según tus necesidades
+      data: {
+        isCreating, 
+        production: production ? production : {} 
+      }, // Puedes pasar datos al componente de diálogo
+      //position: { top: '60px', left: '60px' }
+    });
   
-    // dialogRef.afterClosed().subscribe((result: any) => {
-    //   if (result) {
-    //     console.log(result);
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        console.log(result);
 
-    //     if(result.isCreating){
-    //       this.productions.push(result.data);
+        if(result.isCreating){
+          this.productions.push(result.data);
           
-    //       return;
-    //     }
+          return;
+        }
 
-    //     const index = this.productions.findIndex(p => p.id === result.data.id);
-    //     if (index !== -1) {
-    //       // Utiliza el método splice para reemplazar el objeto en esa posición
-    //       this.productions.splice(index, 1, result.data);
+        const index = this.productions.findIndex(p => p.id === result.data.id);
+        if (index !== -1) {
+          // Utiliza el método splice para reemplazar el objeto en esa posición
+          this.productions.splice(index, 1, result.data);
           
-    //       // Esto reemplazará el objeto en la posición 'index' con 'result'
-    //     }
-    //     this.table.renderRows();
-    //     // Aquí puedes realizar acciones con los datos editados, si es necesario
-    //   }
-    // });
+          // Esto reemplazará el objeto en la posición 'index' con 'result'
+        }
+        this.table.renderRows();
+        // Aquí puedes realizar acciones con los datos editados, si es necesario
+      }
+    });
   }
 }

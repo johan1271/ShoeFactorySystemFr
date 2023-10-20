@@ -2,6 +2,12 @@
 <div mat-dialog-content class="content-form">
     <form [formGroup]="userForm" class="form">
         <mat-form-field floatLabel="always">
+            <mat-label>ID</mat-label>
+            <input matInput type="text" formControlName="id" name="name" placeholder="Identificación">
+            <mat-error *ngIf="userForm.get('id')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
             <mat-label>Nombre</mat-label>
             <input matInput type="text" formControlName="firstName" name="name" placeholder="Nombre">
             <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
@@ -31,6 +37,6 @@
     </form>
 </div>
 <div mat-dialog-actions class="footer-btns">
-    <button mat-button (click)="onCancelClick()">Cancelar</button>
+    <button mat-button mat-dialog-close>Cancelar</button>
     <button mat-raised-button color="primary" class="save-btn" (click)="onSaveClick()">{{ isCreating ? 'Crear' : 'Guardar' }}</button>
 </div>

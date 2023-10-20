@@ -1,10 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Role } from '../../models/interfaces';
 import { EditRoleDialogComponent } from './components/edit-role-dialog/edit-role-dialog.component';
 import { AppService } from 'src/app/app.service';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-roles',
@@ -12,10 +13,12 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./roles.component.scss']
 })
 export class RolesComponent {
+  @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   floatLabelControl = new FormControl('auto' as FloatLabelType);
   options = this._formBuilder.group({
     floatLabel: this.floatLabelControl,
   });
+  search:string = '';
 
   roles: Role[] = [
     {
@@ -60,12 +63,26 @@ export class RolesComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       console.log(result);
+      if(result){
+        if(result.isCreating){
+          this.roles.push(result.data);
+          
+        }else{
+          console.log("editing")
+          const index = this.roles.findIndex(role => role.id === result.data.id);
+          this.roles[index] = result.data;
+        }
+        this.table.renderRows();
+      }
+      
     });
   }
 
-  
+  searchRoleById(event: Event){
+    const id = (event.target as HTMLInputElement).value;
+    console.log(id)
+  }
 
   
 }

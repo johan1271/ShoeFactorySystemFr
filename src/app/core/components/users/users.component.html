@@ -7,10 +7,10 @@
         <div class="content-form">
             <mat-form-field class="search">
                 <mat-label>Buscar</mat-label>
-                <input matInput placeholder="Ex. 12345678-9">
+                <input matInput placeholder="Ex. 12345678-9" [(ngModel)]="search" (keyup.enter)="searchUserById($event)">
             </mat-form-field>
 
-            <button mat-raised-button class="new-btn" (click)="openEditDialog(true)">
+            <button mat-raised-button class="new-btn" (click)="openDialog(true, $event)">
                 <mat-icon>add</mat-icon>
                 Nuevo usuario
             </button>
@@ -18,7 +18,7 @@
         </div>
         <div class="content-table">
 
-            <table mat-table [dataSource]="users" class="table">
+            <table mat-table [dataSource]="users | filter: search: ['id', 'firstName', 'lastName']" class="table">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> ID </th>
                     <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.id}} </td>
@@ -51,7 +51,7 @@
                 <ng-container matColumnDef="edit">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> Editar </th>
                     <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()">
-                        <button mat-icon-button (click)="openEditDialog(false,user)" class="edit-btn">
+                        <button mat-icon-button (click)="openDialog(false,$event,user)" class="edit-btn">
                             <mat-icon class="edit-icon">edit</mat-icon>
                         </button>
 

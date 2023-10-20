@@ -26,6 +26,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { EditUserDialogComponent } from './core/components/users/components/edit-user-dialog/edit-user-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FilterPipe } from './core/pipes/filter.pipe';
+import { EditProductionDialogComponent } from './core/components/production/components/edit-production-dialog/edit-production-dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -44,7 +48,8 @@ import { MatRadioModule } from '@angular/material/radio';
     EditRoleDialogComponent,
     EditProductDialogComponent,
     EditUserDialogComponent,
-    
+    FilterPipe,
+    EditProductionDialogComponent,
     
   ],
   imports: [
@@ -63,6 +68,8 @@ import { MatRadioModule } from '@angular/material/radio';
     HttpClientModule,
     MatSelectModule, // Agrega esta línea para el select (mat-select)
     MatRadioModule, 
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

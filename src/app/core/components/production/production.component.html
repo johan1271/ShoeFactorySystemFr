@@ -7,7 +7,7 @@
         <div class="content-form">
             <mat-form-field class="search">
                 <mat-label>Buscar</mat-label>
-                <input matInput placeholder="Ex. 12345678-9">
+                <input matInput placeholder="Ex. 12345678-9" [(ngModel)]="search">
             </mat-form-field>
 
             <button mat-raised-button class="new-btn" (click)="openEditDialog(true)">
@@ -16,9 +16,9 @@
             </button>
 
         </div>
-        <div class="content-table">
+        <div class="content-table" *ngIf="productions">
 
-            <table mat-table [dataSource]="productions" class="table">
+            <table mat-table [dataSource]="productions | filter:search:['id', 'product.name', 'user.firstName']" class="table">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> ID </th>
                     <td mat-cell *matCellDef="let production" class="row-table" (click)="$event.stopPropagation()"> {{production.id}} </td>
@@ -27,7 +27,7 @@
                 <!-- Columna "nombre del rol" -->
                 <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> Fecha </th>
-                    <td mat-cell *matCellDef="let production" class="row-table" (click)="$event.stopPropagation()"> {{production.date}} </td>
+                    <td mat-cell *matCellDef="let production" class="row-table" (click)="$event.stopPropagation()"> {{production.date | date}} </td>
                 </ng-container>
 
                 <!-- Columna "nombre del rol" -->

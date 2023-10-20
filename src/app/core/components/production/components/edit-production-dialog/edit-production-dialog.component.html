@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+<div mat-dialog-content class="content-form">
+    <form [formGroup]="productionForm" class="form">
+
+        <mat-form-field floatLabel="always">
+            <mat-label>Producto</mat-label>
+            <mat-select formControlName="product">
+                <mat-option value="1">Lengua</mat-option>
+                <mat-option value="2">Talon</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="text" formControlName="quantity" name="name" placeholder="Nombre">
+            <mat-error *ngIf="productionForm.get('quantity')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Selecciona una fecha</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker class="color-datepicker"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+            <mat-label>Usuario</mat-label>
+            <mat-select formControlName="user">
+                <mat-option value="1">Daniel</mat-option>
+                <mat-option value="2">Manuel</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+    </form>
+</div>
+<div mat-dialog-actions class="footer-btns">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" class="save-btn" (click)="onSaveClick()">{{ isCreating ? 'Crear' : 'Guardar' }}</button>
+</div>
