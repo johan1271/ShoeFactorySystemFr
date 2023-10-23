@@ -43,7 +43,7 @@ export class EditUserDialogComponent {
     console.log(formData)
     const user: User = {
       id: formData.id,
-      first_name: formData.first_name,
+      first_name: formData.firstName,
       last_name: formData.lastName,
       role: this.getRoleById(parseInt(formData.role)),
       role_id: parseInt(formData.role),

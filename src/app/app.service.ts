@@ -22,14 +22,35 @@ export class AppService {
     return str
   }
 
+  getPutUrl(any: string, id?: any): string {
+    let str = `${this.apiUrl}${any}/${id}?Authorization=Bearer ${this.cookieService.get('userToken')}`
+    console.log(str)
+    return str
+  }
+
   getUsers(): Observable<any> {
     const httpOptions = this.getHeaders();
     return this.http.get(this.getUrl('users'), httpOptions);
   }
 
+  addUsers(user: any): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.post(this.getUrl('users'), JSON.stringify(user), httpOptions);
+  }
+
   getRoles(): Observable<any> {
     const httpOptions = this.getHeaders();
     return this.http.get(this.getUrl('roles'), httpOptions);
+  }
+
+  addRoles(role: any): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.post(this.getUrl('roles'), JSON.stringify(role), httpOptions);
+  }
+
+  updateRoles(role: any): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.put(this.getPutUrl('roles', role.id), JSON.stringify(role), httpOptions);
   }
 
   getProduction(): Observable<any> {

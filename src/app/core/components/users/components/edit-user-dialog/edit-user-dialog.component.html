@@ -27,7 +27,7 @@
                 <mat-option value="3">Cortador</mat-option>
             </mat-select>
         </mat-form-field>
-        <div class="radio-buttons">
+        <div class="radio-buttons" *ngIf="!isCreating">
             <label>Estado:</label>
             <mat-radio-group formControlName="status">
                 <mat-radio-button value="1">Activo</mat-radio-button>

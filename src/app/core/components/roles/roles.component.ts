@@ -19,11 +19,11 @@ export class RolesComponent {
     floatLabel: this.floatLabelControl,
   });
   search:string = '';
-
+  loader:boolean;
   roles: Role[] = [
   ];
   constructor(private _formBuilder: FormBuilder, public dialog: MatDialog, public _appService: AppService) { 
-    
+    this.loader = true;
   }
 
   ngOnInit(): void {
@@ -34,6 +34,7 @@ export class RolesComponent {
     this._appService.getRoles().subscribe({
       next: (response: any) => {
         console.log(response);
+        this.loader = false;
         this.roles = response;
         //despues obtener la cookie y luego verificar el token
       },
@@ -63,17 +64,61 @@ export class RolesComponent {
       console.log(result);
       if(result){
         if(result.isCreating){
-          this.roles.push(result.data);
+
+          this.createRoles(result.data);
           
         }else{
           console.log("editing")
-          const index = this.roles.findIndex(role => role.id === result.data.id);
-          this.roles[index] = result.data;
+          this.updateRoles(result.data);
+          // const index = this.roles.findIndex(role => role.id === result.data.id);
+          // this.roles[index] = result.data;
         }
-        this.table.renderRows();
+        
       }
       
     });
+  }
+
+  createRoles(result:any){
+    console.log(result)
+    this._appService.addRoles({name: result.name}).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.roles.push(response);
+      },
+      error: (error: any) => {
+
+        if(error.status === 422){
+          alert('Ya existe');
+        } 
+        console.log(error);
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    }); 
+  }
+
+  updateRoles(result:any){
+    console.log(result)
+    this._appService.updateRoles(result).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        const index = this.roles.findIndex(role => role.id === response.id);
+        this.roles[index] = response;
+        this.table.renderRows();
+      },
+      error: (error: any) => {
+
+        if(error.status === 422){
+          alert('Ya existe');
+        } 
+        console.log(error);
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    }); 
   }
 
   searchRoleById(event: Event){

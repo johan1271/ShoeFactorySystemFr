@@ -47,7 +47,10 @@
                 <tr mat-header-row *matHeaderRowDef="['id', 'role', 'edit']"></tr>
                 <tr mat-row *matRowDef="let row; columns: ['id', 'role', 'edit']"></tr>
             </table>
-
+            <mat-card *ngIf="loader">
+                <mat-progress-spinner mode="indeterminate">
+                </mat-progress-spinner>
+            </mat-card>
         </div>
     </div>
 

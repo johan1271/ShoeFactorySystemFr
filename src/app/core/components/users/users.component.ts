@@ -42,6 +42,7 @@ export class UsersComponent {
   getUsers(): void {
     this._appService.getUsers().subscribe({
       next: (response: any) => {
+        console.log(response)
         this.loader = false;
         this.users = response;
         //despues obtener la cookie y luego verificar el token
@@ -83,7 +84,8 @@ export class UsersComponent {
       }
 
       if (result.isCreating) {
-        this.users.push(result.data);
+        this.createUser(result);
+        //this.users.push(result.data);
         this.table.renderRows();
         
       } else {
@@ -104,7 +106,44 @@ export class UsersComponent {
     
   }
 
-  
+  createUser(result: any): void {
+    let user = result.data;
+    const { role, active, ...newUser } = user;
+    console.log(newUser)
+    this._appService.addUsers(newUser).subscribe({
+      next: (response: any) => {
+        console.log(response)
+        response.role = this.getRoleById(response.role_id);
+        this.users = [...this.users, response];
+        //despues obtener la cookie y luego verificar el token
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        if(error.status == 500){
+          //codigo para recargar la pagina automaticamente
+        }
+
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    });
+  }
+
+
+  getRoleById(id: number): string {
+    switch (id) {
+      case 1:
+        return 'Guarnecedor';
+      case 2:
+        return 'Ensamblador';
+      case 3:
+        return 'Cortador';
+      default:
+        return '';
+    }
+  }
 
   searchUserById(event: Event): void {
     const id = (event.target as HTMLInputElement).value;
