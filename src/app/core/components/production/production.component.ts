@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MatTable } from '@angular/material/table';
 import { AppService } from 'src/app/app.service';
-import { Production } from '../../models/interfaces';
+import { Production, userProduction } from '../../models/interfaces';
 import { EditProductionDialogComponent } from './components/edit-production-dialog/edit-production-dialog.component';
 
 @Component({
@@ -19,72 +19,44 @@ export class ProductionComponent {
   });
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   search:string = '';
-  
-  productions: Production[] = [
-
-    {
-      "id": 1,
-      "date": '2021-05-05T00:00:00Z',
-      "product": {
-        "id": 1,
-        "name": 'Cordones',
-        "unitCompensation": 2,
-        "price": 2,
-        "packageCompensation": 2,
-        "kind": 'Guarnecedor'
-      },
-      "quantity": 2,
-      "user": {
-        "id": 1,
-        "role": {
-          "id": 1,
-          "name": 'Empleado'
-        },
-        "firstName": 'Juan',
-        "lastName": 'Perez',
-        "active": true,
-        
-      }
-    },
-    {
-      "id": 2,
-      "date": '2021-05-05T00:00:00Z',
-      "product": {
-        "id": 1,
-        "name": 'Suela',
-        "unitCompensation": 2,
-        "price": 2,
-        "packageCompensation": 2,
-        "kind": 'Guarnecedor'
-      },
-      "quantity": 2,
-      "user": {
-        "id": 1,
-        "role": {
-          "id": 1,
-          "name": 'Administrador'
-        },
-        "firstName": 'Morelia',
-        "lastName": 'Martinez',
-        "active": true,
-      }
-    },
+  loader:boolean;
+  productions: userProduction[] = [
   ];
   
-  displayedColumns: string[] = ['id', 'date', 'nameProduct', 'quantity', 'userName', 'edit'];
+  displayedColumns: string[] = ['employeeName', 'productName', 'quantity','unit_price' ,'percentage', 'price', 'compensation', 'edit'];
 
-  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { }
+  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { 
+    this.loader = true;
+  }
 
   ngOnInit(): void {
-    //this.getUsers();
+    this.getProduction();
   }
 
 
-  getUsers(): void {
-    this._appService.getUsers().subscribe((response: any) => {
-      console.log(response);
-      //this.products = response;
-    });
+  getProduction(): void {
+
+  
+    this._appService.getProduction().subscribe({
+      next: (response: any) => {
+        console.log(response)
+        this.loader = false;
+        this.productions = response.production;
+        //despues obtener la cookie y luego verificar el token
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        if(error.status == 500){
+          //codigo para recargar la pagina automaticamente
+        }
+
+      },
+      complete: () => {
+        console.log('complete');
+      }
+  
+    });      
   }
 
   getFloatLabelValue(): FloatLabelType {
@@ -92,33 +64,33 @@ export class ProductionComponent {
   }
 
 
-  openEditDialog(isCreating:boolean,production?: Production): void {
+  openEditDialog(isCreating:boolean,userProduction?: userProduction): void {
     const dialogRef = this.dialogProduct.open(EditProductionDialogComponent, {
       width: '313px', // Personaliza el ancho según tus necesidades
       data: {
         isCreating, 
-        production: production ? production : {} 
+        userProduction: userProduction ? userProduction : {} 
       }, // Puedes pasar datos al componente de diálogo
       //position: { top: '60px', left: '60px' }
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        console.log(result);
+        // console.log(result);
 
-        if(result.isCreating){
-          this.productions.push(result.data);
+        // if(result.isCreating){
+        //   this.productions.push(result.data);
           
-          return;
-        }
+        //   return;
+        // }
 
-        const index = this.productions.findIndex(p => p.id === result.data.id);
-        if (index !== -1) {
-          // Utiliza el método splice para reemplazar el objeto en esa posición
-          this.productions.splice(index, 1, result.data);
+        // const index = this.productions.findIndex(p => p. === result.data.id);
+        // if (index !== -1) {
+        //   // Utiliza el método splice para reemplazar el objeto en esa posición
+        //   this.productions.splice(index, 1, result.data);
           
-          // Esto reemplazará el objeto en la posición 'index' con 'result'
-        }
+        //   // Esto reemplazará el objeto en la posición 'index' con 'result'
+        // }
         this.table.renderRows();
         // Aquí puedes realizar acciones con los datos editados, si es necesario
       }

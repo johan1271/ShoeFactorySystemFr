@@ -20,10 +20,10 @@ export class EditUserDialogComponent {
     
     this.userForm = this._formBuilder.group({
       id: [this.user.id, [Validators.required]],
-      firstName: [this.user.firstName, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      lastName: [this.user.lastName, [ Validators.required, Validators.min(2), Validators.maxLength(50)]],
-      role: [ this.user.role ? this.user.role.id.toString(): '2', Validators.required],
-      status: [this.user.role ? this.user.active.toString() : 'true', Validators.required],
+      firstName: [this.user.first_name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      lastName: [this.user.last_name, [ Validators.required, Validators.min(2), Validators.maxLength(50)]],
+      role: [ this.user.role_id ? this.user.role_id.toString(): '1', Validators.required],
+      status: [this.user.active ? this.user.active.toString() : '1', Validators.required],
     });
     
 
@@ -43,13 +43,11 @@ export class EditUserDialogComponent {
     console.log(formData)
     const user: User = {
       id: formData.id,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      role: {
-        id: parseInt(formData.role),
-        name: this.getRoleById(parseInt(formData.role)),
-      },
-      active: formData.status === 'true' ? true : false,
+      first_name: formData.first_name,
+      last_name: formData.lastName,
+      role: this.getRoleById(parseInt(formData.role)),
+      role_id: parseInt(formData.role),
+      active: parseInt(formData.status),
     };
     
     this.dialogRef.close({data: user, isCreating: this.isCreating});
@@ -58,11 +56,11 @@ export class EditUserDialogComponent {
   getRoleById(id: number): string {
     switch (id) {
       case 1:
-        return 'Administrador';
+        return 'Guarnecedor';
       case 2:
-        return 'Empleado';
+        return 'Ensamblador';
       case 3:
-        return 'Cliente';
+        return 'Cortador';
       default:
         return '';
     }

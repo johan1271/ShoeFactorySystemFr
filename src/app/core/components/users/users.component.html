@@ -18,6 +18,7 @@
         </div>
         <div class="content-table">
 
+
             <table mat-table [dataSource]="users | filter: search: ['id', 'firstName', 'lastName']" class="table">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> ID </th>
@@ -27,23 +28,23 @@
                 <!-- Columna "nombre del rol" -->
                 <ng-container matColumnDef="roleName">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> Rol </th>
-                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.role.name}} </td>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.role}} </td>
                 </ng-container>
 
                 <!-- Columna "nombre del rol" -->
                 <ng-container matColumnDef="firstName">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> Nombre</th>
-                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.firstName}}</td>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.first_name}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="lastName">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> Apellido</th>
-                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.lastName}} </td>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.last_name}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="active">
                     <th mat-header-cell *matHeaderCellDef class="header-table"> Estado</th>
-                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.active ? 'Activo' : 'No activo'}} </td>
+                    <td mat-cell *matCellDef="let user" class="row-table" (click)="$event.stopPropagation()"> {{user.active == 1 ? 'Activo' : 'No activo'}} </td>
                 </ng-container>
 
 
@@ -64,7 +65,10 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
-
+            <mat-card *ngIf="loader">
+                <mat-progress-spinner mode="indeterminate">
+                </mat-progress-spinner>
+            </mat-card>
         </div>
     </div>
 

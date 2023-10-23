@@ -5,10 +5,11 @@ export interface Role {
 
 export interface User {
     id: number;
-    firstName: string;
-    lastName: string;
-    role: Role;
-    active: boolean;
+    first_name: string;
+    last_name: string;
+    role: string;
+    role_id: number;
+    active: number;
 }
 
 export interface Product {
@@ -30,10 +31,11 @@ export interface Production {
 
 export interface userProduction {
     compensation: number;
-    employeeName: string;
-    productName: string;
+    employee_name: string;
+    name: string;
     percentage: number;
     quantity: number;
     price: number;
+    unit_price: number;
 }
 

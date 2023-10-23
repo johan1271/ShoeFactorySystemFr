@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AppService } from 'src/app/app.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,12 +11,13 @@ import { Component } from '@angular/core';
 export class NavBarComponent {
   currentDateTime: string;
 
-  constructor() {
+  constructor(public _appService: AppService, public cookieService: CookieService, private _router: Router) {
     const now = new Date();
     this.currentDateTime = now.toLocaleString();;
   }
 
   ngOnInit() {
+    
     // Llamada inicial para establecer la fecha.
     this.updateDateTime();
     
@@ -26,5 +30,11 @@ export class NavBarComponent {
   updateDateTime() {
     const now = new Date();
     this.currentDateTime = now.toLocaleString();
+  }
+
+  logOut(){
+    this.cookieService.delete('userToken');
+    this._router.navigate(['/login']);
+    
   }
 }

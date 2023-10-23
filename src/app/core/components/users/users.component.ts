@@ -20,49 +20,44 @@ export class UsersComponent {
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   @ViewChild('edit-btn') editBtn: ElementRef = {} as ElementRef;
   search = '';
+  loader:boolean;
   //dataSource = new MatTableDataSource(users);
 
 
-  users: User[] = [
-
-    {
-      "id": 1,
-      "role": {
-        "id": 1,
-        "name": 'Administrador'
-      },
-      "firstName": 'Maicol',
-      "lastName": 'Reproductor',
-      "active": true,
-
-    },
-
-    {
-      "id": 2,
-      "role": {
-        "id": 2,
-        "name": 'Empleado'
-      },
-      "firstName": 'Daniel',
-      "lastName": 'Lopez',
-      "active": false,
-
-    },
-  ];
+  users: User[] = [];
 
   displayedColumns: string[] = ['id', 'roleName', 'firstName', 'lastName', 'active', 'edit'];
 
-  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { }
+  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) {
+    this.loader = true;
+  }
 
   ngOnInit(): void {
-    //this.getUsers();
+    //this.loader = true;
+    this.getUsers();
+    //this.getLogin();
   }
 
 
   getUsers(): void {
-    this._appService.getUsers().subscribe((response: any) => {
-      console.log(response);
-      //this.products = response;
+    this._appService.getUsers().subscribe({
+      next: (response: any) => {
+        this.loader = false;
+        this.users = response;
+        //despues obtener la cookie y luego verificar el token
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        if(error.status == 500){
+          //codigo para recargar la pagina automaticamente
+
+
+        }
+      },
+      complete: () => {
+        console.log('complete');
+      }
     });
   }
 

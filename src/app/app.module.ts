@@ -30,6 +30,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FilterPipe } from './core/pipes/filter.pipe';
 import { EditProductionDialogComponent } from './core/components/production/components/edit-production-dialog/edit-production-dialog.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { LoginComponent } from './core/components/login/login.component';
+import { HomeComponent } from './core/components/home/home.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -50,6 +55,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     EditUserDialogComponent,
     FilterPipe,
     EditProductionDialogComponent,
+    LoginComponent,
+    HomeComponent,
     
   ],
   imports: [
@@ -69,9 +76,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule, // Agrega esta línea para el select (mat-select)
     MatRadioModule, 
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatCardModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

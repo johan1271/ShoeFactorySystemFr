@@ -35,6 +35,7 @@
         }
         .content-table {
             overflow-y: auto;
+            position: relative;
             .table {
                 width: 100%;
                 .header-table {
@@ -98,4 +99,24 @@
     }
 }
 
-//Background del form
+// //Background del form
+mat-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    //gap: 10px;
+    mat-progress-spinner {
+        width: 50px !important;
+        height: 50px !important;
+        //position: absolute;
+         ::ng-deep circle {
+            stroke: $color-dark-bg;
+        }
+        //color: $color-dark-bg;
+    }
+}
+
+// .mat-mdc-progress-spinner {
+//     --mdc-circular-progress-active-indicator-color: $colo;
+// }

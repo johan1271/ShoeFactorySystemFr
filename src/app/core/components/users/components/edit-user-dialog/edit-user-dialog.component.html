@@ -22,15 +22,16 @@
         <mat-form-field floatLabel="always">
             <mat-label>Rol</mat-label>
             <mat-select formControlName="role">
-                <mat-option value="1">Administrador</mat-option>
-                <mat-option value="2">Empleado</mat-option>
+                <mat-option value="1">Guarnecedor</mat-option>
+                <mat-option value="2">Ensamblador</mat-option>
+                <mat-option value="3">Cortador</mat-option>
             </mat-select>
         </mat-form-field>
         <div class="radio-buttons">
             <label>Estado:</label>
             <mat-radio-group formControlName="status">
-                <mat-radio-button value="true">Activo</mat-radio-button>
-                <mat-radio-button value="false">Inactivo</mat-radio-button>
+                <mat-radio-button value="1">Activo</mat-radio-button>
+                <mat-radio-button value="0">Inactivo</mat-radio-button>
             </mat-radio-group>
         </div>
 

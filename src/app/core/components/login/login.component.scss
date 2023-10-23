@@ -1,0 +1,42 @@
+.content-login {
+    background-color: #f3f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box-login {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.box-login h1 {
+    color: #13b9b8;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.box-login mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.box-login button {
+    background-color: #13b9b8;
+    color: white;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.box-login button:hover {
+    background-color: #0a918d;
+    /* Cambio de color al pasar el cursor sobre el botón */
+}

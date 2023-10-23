@@ -20,94 +20,30 @@ export class ProductsComponent {
   });
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   search = '';
-  products: Product[] = [
-    {
-      "id": 1,
-      "name": 'Zapato',
-      "unitCompensation": 5,
-      "price": 100,
-      "packageCompensation": 400,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 2,
-      "name": 'Bota',
-      "unitCompensation": 7,
-      "price": 150,
-      "packageCompensation": 300,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 3,
-      "name": 'Sandalias',
-      "unitCompensation": 3,
-      "price": 50,
-      "packageCompensation": 200,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 4,
-      "name": 'Sandalias',
-      "unitCompensation": 3,
-      "price": 50,
-      "packageCompensation": 200,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 5,
-      "name": 'Sandalias',
-      "unitCompensation": 3,
-      "price": 50,
-      "packageCompensation": 200,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 6,
-      "name": 'Sandalias',
-      "unitCompensation": 3,
-      "price": 50,
-      "packageCompensation": 200,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 7,
-      "name": 'Sandalias',
-      "unitCompensation": 3,
-      "price": 50,
-      "packageCompensation": 200,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 8,
-      "name": 'Sandalias',
-      "unitCompensation": 3,
-      "price": 50,
-      "packageCompensation": 200,
-      "kind": 'Calzado'
-    },
-    {
-      "id": 9,
-      "name": 'Sandalias',
-      "unitCompensation": 3,
-      "price": 50,
-      "packageCompensation": 200,
-      "kind": 'Calzado'
-    },
-  ];
+  products: Product[] = [];
 
   displayedColumns: string[] = ['id', 'name', 'unitCompensation', 'price', 'packageCompensation', 'kind', 'edit'];
 
   constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { }
 
   ngOnInit(): void {
-    //this.getProducts();
+    this.getProducts();
   }
 
 
   getProducts(): void {
-    this._appService.getProducts().subscribe((response: any) => {
-      console.log(response);
-      //this.products = response;
+    this._appService.getProducts().subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.products = response;
+        //despues obtener la cookie y luego verificar el token
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log('complete');
+      }
     });
   }
 

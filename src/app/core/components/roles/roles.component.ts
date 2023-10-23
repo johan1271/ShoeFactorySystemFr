@@ -21,31 +21,28 @@ export class RolesComponent {
   search:string = '';
 
   roles: Role[] = [
-    {
-      "id": 1,
-      "name": 'Guarnecedor',
-    },
-    {
-      "id": 2,
-      "name": 'Cortador',
-    },
-    {
-      "id": 3,
-      "name": 'Ensamblador',
-    },
   ];
   constructor(private _formBuilder: FormBuilder, public dialog: MatDialog, public _appService: AppService) { 
     
   }
 
   ngOnInit(): void {
-    //this.getRoles();
+    this.getRoles();
   }
 
   getRoles(): void {
-    this._appService.getRoles().subscribe((response: any) => {
-      console.log(response);
-      //this.products = response;
+    this._appService.getRoles().subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.roles = response;
+        //despues obtener la cookie y luego verificar el token
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log('complete');
+      }
     });
   }
 

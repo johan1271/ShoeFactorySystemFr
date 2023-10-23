@@ -19,7 +19,7 @@ export class EditProductionDialogComponent {
   products: Product[];
   constructor( public dialogRef: MatDialogRef<EditProductionDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private _formBuilder: FormBuilder) { 
     this.isCreating = data.isCreating;
-    this.production = data.production;
+    this.production = data.userProduction;
     this.dialogTitle = this.isCreating ? 'Crear producción' : 'Editar producción';
     this.selectedUser = this.production.user;
     this.selectedProduct = this.production.product;
@@ -32,29 +32,7 @@ export class EditProductionDialogComponent {
       
     });
     this.users = [
-      {
-        id: 1,
-        firstName: 'Juan',
-        lastName: 'Perez',
-        role: {
-          id: 1,
-          name: 'Administrador'
-        },
-        active: true,
-
-      },
-
-      {
-        id: 2,
-        firstName: 'Morelia',
-        lastName: 'Martinez',
-        role: {
-          id: 2,
-          name: 'Empleado'
-        },
-        active: true,
-
-      },
+      
     ]
     this.products = [
       {
