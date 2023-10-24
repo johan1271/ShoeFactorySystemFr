@@ -3,13 +3,14 @@
     <div class="box-login">
 
         <h1>Bienvenido</h1>
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Id de usuario" [(ngModel)]="userId">
-        </mat-form-field>
+        <form [formGroup]="loginForm">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Id de usuario" name="userId" formControlName="userId">
+                <!-- <mat-error *ngIf="loginForm.get('userId')?.hasError('required')">Este campo es obligatorio</mat-error> -->
+            </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="login()">Login</button>
-
-
+            <button mat-raised-button color="primary" (click)="login()">Login</button>
+        </form>
     </div>
 
 

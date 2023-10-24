@@ -2,15 +2,21 @@ import { Component } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  userId:string = '';
-  constructor(public _appService: AppService, private cookieService: CookieService, private _router: Router) { }
+  
+  loginForm: FormGroup;
+  constructor(public _appService: AppService, private cookieService: CookieService, private _router: Router, private snackBar: MatSnackBar) { 
+    this.loginForm = new FormGroup({
+      userId: new FormControl('', [Validators.required]),
+    });
+  }
 
   ngOnInit(): void {
     //this.getLogin()
@@ -21,9 +27,19 @@ export class LoginComponent {
   }
 
   login(){
-    console.log(this.userId)
     
-    this._appService.getLogin(parseInt(this.userId)).subscribe({
+
+    if(this.loginForm.invalid){
+      // Marca todos los campos como tocados para que se muestren los mensajes de error
+      this.loginForm.markAllAsTouched();
+      
+      this.openSnackBar('El campo es obligatorio');
+      return;
+    }
+
+    const userId = parseInt(this.loginForm.get('userId')?.value);
+    
+    this._appService.getLogin(userId).subscribe({
       next: (response: any) => {
         console.log(response);
         this.cookieService.set('userToken', response);
@@ -34,12 +50,18 @@ export class LoginComponent {
         console.log(error);
 
         if(error.status == 404){
-          alert('El usuario no existe')
+          this.openSnackBar('El usuario no existe');
         }
       },
       complete: () => {
         console.log('complete');
       }
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 2000,
     });
   }
 

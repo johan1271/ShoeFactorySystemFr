@@ -35,6 +35,8 @@ import { HomeComponent } from './core/components/home/home.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -78,7 +80,8 @@ import {MatCardModule} from '@angular/material/card';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
