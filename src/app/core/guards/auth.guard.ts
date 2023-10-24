@@ -1,22 +1,45 @@
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AppService } from 'src/app/app.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private cookieService: CookieService, public _appService:AppService) {}
+  constructor(private router: Router, private cookieService: CookieService, public _appService: AppService) {}
 
   canActivate(): boolean {
     // Verifica si el usuario tiene un token de autenticación en las cookies
     const userToken = this.cookieService.get('userToken');
-    console.log('userToken', userToken)
+
     if (userToken) {
-      
-      return true; // Permite el acceso a la ruta protegida
+      // Hacer una solicitud asincrónica para verificar el token
+      this._appService.getVerifyToken().subscribe({
+        next: (response: any) => {
+          console.log(response);
+          console.log(this.router.url);
+
+          if (this.router.url === '/home/users' && response.role === 'Administrador') {
+            // El usuario tiene permiso, permite el acceso
+            return true;
+          } else {
+            // El usuario no tiene permiso, redirige a otra página
+            this.router.navigate(['/home/products']);
+            return false;
+          }
+        },
+        error: (error: any) => {
+          // Error en la verificación del token, redirige a otra página
+          console.log(error);
+          this.router.navigate(['/login']);
+          return false;
+        },
+      });
+
+      return true; // Esto se ejecutará antes de que la respuesta de la suscripción esté disponible.
     } else {
-      this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión si no está autenticado
-      return false; // No permite el acceso a la ruta protegida
+      // El usuario no tiene un token, redirige a la página de inicio de sesión
+      this.router.navigate(['/login']);
+      return false;
     }
   }
 }

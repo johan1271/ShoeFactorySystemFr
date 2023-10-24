@@ -25,7 +25,8 @@ export class EditUserDialogComponent {
       role: [ this.user.role_id ? this.user.role_id.toString(): '1', Validators.required],
       status: [this.user.active ? this.user.active.toString() : '1', Validators.required],
     });
-    
+
+    !this.isCreating ? this.userForm.get('id')?.disable() : null;
 
   }
 
@@ -37,10 +38,10 @@ export class EditUserDialogComponent {
       return;
     }
 
-    const formData = this.userForm.value;
+    const formData = this.userForm.getRawValue();
 
     // Crea un objeto con los datos del formulario
-    console.log(formData)
+    //console.log(formData)
     const user: User = {
       id: formData.id,
       first_name: formData.firstName,
@@ -49,7 +50,6 @@ export class EditUserDialogComponent {
       role_id: parseInt(formData.role),
       active: parseInt(formData.status),
     };
-    
     this.dialogRef.close({data: user, isCreating: this.isCreating});
   }
 

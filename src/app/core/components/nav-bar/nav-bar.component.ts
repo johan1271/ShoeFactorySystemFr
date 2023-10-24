@@ -35,6 +35,7 @@ export class NavBarComponent {
   logOut(){
     console.log('logOut')
     this.cookieService.delete('userToken');
+    
     window.location.reload();
     // setTimeout(() => {
     //   this._router.navigate(['/login']);

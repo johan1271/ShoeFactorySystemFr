@@ -18,13 +18,12 @@ export class AppService {
 
   getUrl(any: string): string {
     let str = `${this.apiUrl}${any}?Authorization=Bearer ${this.cookieService.get('userToken')}`
-    console.log(str)
+    
     return str
   }
 
   getPutUrl(any: string, id?: any): string {
     let str = `${this.apiUrl}${any}/${id}?Authorization=Bearer ${this.cookieService.get('userToken')}`
-    console.log(str)
     return str
   }
 
@@ -36,6 +35,11 @@ export class AppService {
   addUsers(user: any): Observable<any> {
     const httpOptions = this.getHeaders();
     return this.http.post(this.getUrl('users'), JSON.stringify(user), httpOptions);
+  }
+
+  putUsers(user: any): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.put(this.getPutUrl('users', user.id), JSON.stringify(user), httpOptions);
   }
 
   getRoles(): Observable<any> {

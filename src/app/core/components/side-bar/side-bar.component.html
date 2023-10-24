@@ -6,7 +6,7 @@
 
     <ul class="menu-items">
 
-        <li [routerLink]="['users']" class="item"><i class="fa-solid fa-users"></i>Usuarios</li>
+        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['users']" class="item"><i class="fa-solid fa-users"></i>Usuarios</li>
         <li [routerLink]="['products']" class="item"><i class="fa-solid fa-boxes-stacked"></i>Productos</li>
         <li [routerLink]="['productions']" class="item"><i class="fa-solid fa-dolly"></i>Producción</li>
         <li [routerLink]="['roles']" class="item"><i class="fa-solid fa-user-gear"></i>Roles</li>

@@ -85,22 +85,13 @@ export class UsersComponent {
 
       if (result.isCreating) {
         this.createUser(result);
-        //this.users.push(result.data);
-        this.table.renderRows();
-        
-      } else {
-        const index = this.users.findIndex(p => p.id === result.data.id);
-        if (index !== -1) {
-          // Utiliza el método splice para reemplazar el objeto en esa posición
-          this.users.splice(index, 1, result.data);
 
-          // Esto reemplazará el objeto en la posición 'index' con 'result'
-        }
-        this.table.renderRows();
+      } else {
+
+        this.updateUser(result);
+      
         // Aquí puedes realizar acciones con los datos editados, si es necesario
       }
-
-      
 
     });
     
@@ -131,15 +122,41 @@ export class UsersComponent {
     });
   }
 
+  updateUser(result: any): void {
+    let user = result.data;
+    const { role, ...newUser } = user;
+    this._appService.putUsers(newUser).subscribe({
+      next: (response: any) => {
+        console.log(response)
+        response.role = this.getRoleById(response.role_id);
+        const index = this.users.findIndex(role => role.id === response.id);
+        this.users[index] = response;
+        this.table.renderRows();
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        if(error.status == 500){
+          //codigo para recargar la pagina automaticamente
+        }
+
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    });
+    console.log(result)
+  }
+
 
   getRoleById(id: number): string {
     switch (id) {
       case 1:
         return 'Guarnecedor';
       case 2:
-        return 'Ensamblador';
-      case 3:
         return 'Cortador';
+      case 3:
+        return 'Ensamblador';
       default:
         return '';
     }
