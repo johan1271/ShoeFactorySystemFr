@@ -21,10 +21,12 @@ export class ProductsComponent {
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   search = '';
   products: Product[] = [];
-
+  loader: boolean;
   displayedColumns: string[] = ['id', 'name', 'unitCompensation', 'price', 'packageCompensation', 'kind', 'edit'];
 
-  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { }
+  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { 
+    this.loader = true;
+  }
 
   ngOnInit(): void {
     this.getProducts();
@@ -35,6 +37,7 @@ export class ProductsComponent {
     this._appService.getProducts().subscribe({
       next: (response: any) => {
         console.log(response);
+        this.loader = false;
         this.products = response;
         //despues obtener la cookie y luego verificar el token
       },
@@ -68,7 +71,8 @@ export class ProductsComponent {
         
 
         if(result.isCreating){
-          this.products.push(result.data);
+          this.createProduct(result.data);
+          //this.products.push(result.data);
           
         } else{
           const index = this.products.findIndex(p => p.id === result.data.id);
@@ -87,6 +91,30 @@ export class ProductsComponent {
     });
   }
 
+  createProduct(result: any): void {
+    let product = result;
+    const {id, ...newProduct} = product;
+    console.log(result)
+    this._appService.addProducts(product).subscribe({
+      next: (response: any) => {
+        console.log(response)
+       //response.role = this.getRoleById(response.role_id);
+        this.products = [...this.products, response];
+        
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        if(error.status == 500){
+          
+        }
+
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    });
+  }
 
   searchProductById(event: Event){
     const value = (event.target as HTMLInputElement).value;

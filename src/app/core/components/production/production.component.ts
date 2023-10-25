@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MatTable } from '@angular/material/table';
 import { AppService } from 'src/app/app.service';
-import { Production, userProduction } from '../../models/interfaces';
+import { Production, User, userProduction } from '../../models/interfaces';
 import { EditProductionDialogComponent } from './components/edit-production-dialog/edit-production-dialog.component';
 
 @Component({
@@ -20,8 +20,7 @@ export class ProductionComponent {
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   search:string = '';
   loader:boolean;
-  productions: userProduction[] = [
-  ];
+  productions: userProduction[] = [];
   
   displayedColumns: string[] = ['employeeName', 'productName', 'quantity','unit_price' ,'percentage', 'price', 'compensation', 'edit'];
 

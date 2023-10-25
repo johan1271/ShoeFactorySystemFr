@@ -17,13 +17,13 @@ export class EditUserDialogComponent {
     this.isCreating = data.isCreating;
     this.user = data.user;
     this.dialogTitle = this.isCreating ? 'Crear usuario' : 'Editar usuario';
-    
+    console.log(this.user)
     this.userForm = this._formBuilder.group({
       id: [this.user.id, [Validators.required]],
       firstName: [this.user.first_name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       lastName: [this.user.last_name, [ Validators.required, Validators.min(2), Validators.maxLength(50)]],
       role: [ this.user.role_id ? this.user.role_id.toString(): '1', Validators.required],
-      status: [this.user.active ? this.user.active.toString() : '1', Validators.required],
+      status: [this.user.active != null ? this.user.active.toString() : '1', Validators.required],
     });
 
     !this.isCreating ? this.userForm.get('id')?.disable() : null;

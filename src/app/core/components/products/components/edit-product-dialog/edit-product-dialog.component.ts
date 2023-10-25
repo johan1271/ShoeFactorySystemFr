@@ -20,12 +20,16 @@ export class EditProductDialogComponent {
     this.dialogTitle = this.isCreating ? 'Crear producto' : 'Editar producto';
     
     this.productForm = this._formBuilder.group({
+      id: [this.product.id,{value: this.product, disabled: true} ],
       name: [this.product.name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       price: [this.product.price, [ Validators.required, Validators.min(0)]],
-      unitCompensation: [this.product.unitCompensation,[ Validators.required, Validators.min(0)]],
-      packageCompensation: [this.product.packageCompensation, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      kind: [this.product.kind, Validators.required]
+      unitCompensation: [this.product.unit_compensation,[ Validators.required, Validators.min(0)]],
+      packageCompensation: [this.product.package_compensation, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      
+      kind: [this.product.kind ? this.product.kind : 'Guarnecedor', Validators.required],
     });
+
+    this.productForm.get('id')?.disable() 
   }
 
   
@@ -33,20 +37,21 @@ export class EditProductDialogComponent {
   onSaveClick(): void {
     // Puedes realizar acciones de guardado aquí, por ejemplo, enviar el formulario al servidor
     if(this.productForm.invalid){
+      console.log(this.productForm)
       // Marca todos los campos como tocados para que se muestren los mensajes de error
       this.productForm.markAllAsTouched();
       return;
     }
 
     const formData = this.productForm.value;
-
+    console.log(formData)
     // Crea un objeto con los datos del formulario
     const product: Product = {
       id: this.product.id,
       name: formData.name,
       price: formData.price,
-      unitCompensation: formData.unitCompensation,
-      packageCompensation: formData.packageCompensation,
+      unit_compensation: formData.unitCompensation,
+      package_compensation: formData.packageCompensation,
       kind: formData.kind
     };
 

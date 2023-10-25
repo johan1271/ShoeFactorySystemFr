@@ -15,9 +15,9 @@ export interface User {
 export interface Product {
     id: number;
     name: string;
-    unitCompensation: number;
+    unit_compensation: number;
     price: number;
-    packageCompensation: number;
+    package_compensation: number;
     kind: string;
 }
 

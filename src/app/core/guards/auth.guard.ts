@@ -18,12 +18,12 @@ export class AuthGuard implements CanActivate {
           console.log(response);
           console.log(this.router.url);
 
-          if (this.router.url === '/home/users' && response.role === 'Administrador') {
+          if (this.router.url === '/home/users' && response.role === 'Administrador' || this.router.url == '/home/products' && response.role === 'Administrador' || this.router.url == '/home/roles' && response.role === 'Administrador') {
             // El usuario tiene permiso, permite el acceso
             return true;
           } else {
             // El usuario no tiene permiso, redirige a otra página
-            this.router.navigate(['/home/products']);
+            this.router.navigate(['/home/productions']);
             return false;
           }
         },

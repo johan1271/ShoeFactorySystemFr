@@ -6,10 +6,10 @@
 
     <ul class="menu-items">
 
-        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['users']" class="item"><i class="fa-solid fa-users"></i>Usuarios</li>
-        <li [routerLink]="['products']" class="item"><i class="fa-solid fa-boxes-stacked"></i>Productos</li>
-        <li [routerLink]="['productions']" class="item"><i class="fa-solid fa-dolly"></i>Producción</li>
-        <li [routerLink]="['roles']" class="item"><i class="fa-solid fa-user-gear"></i>Roles</li>
-        <li [routerLink]="['search-production']" class="item"><i class="fa-solid fa-circle-info"></i>Búsqueda</li>
+        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['users']" class="item" routerLink="home/users" routerLinkActive="active-link"><i class="fa-solid fa-users"></i>Usuarios</li>
+        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['products']" class="item" routerLink="home/products" routerLinkActive="active-link"><i class="fa-solid fa-boxes-stacked"></i>Productos</li>
+        <li [routerLink]="['productions']" class="item" routerLink="home/productions" routerLinkActive="active-link"><i class="fa-solid fa-dolly"></i>Producción</li>
+        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['roles']" class="item" routerLink="home/roles" routerLinkActive="active-link"><i class="fa-solid fa-user-gear"></i>Roles</li>
+        <!-- <li [routerLink]="['search-production']" class="item"><i class="fa-solid fa-circle-info"></i>Búsqueda</li> -->
     </ul>
 </div>

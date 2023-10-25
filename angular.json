@@ -27,13 +27,14 @@
                         "inlineStyleLanguage": "scss",
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets"
+                            "src/assets",
+                            "src/_redirects"
                         ],
                         "styles": [
-                          "@angular/material/prebuilt-themes/deeppurple-amber.css",
-                          "src/styles.scss",
-                          "src/normalize.scss",
-                          "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+                            "@angular/material/prebuilt-themes/deeppurple-amber.css",
+                            "src/styles.scss",
+                            "src/normalize.scss",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
                         ],
                         "scripts": [
                             "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
@@ -43,13 +44,13 @@
                         "production": {
                             "budgets": [{
                                     "type": "initial",
-                                    "maximumWarning": "500kb",
-                                    "maximumError": "1mb"
+                                    "maximumWarning": "4mb",
+                                    "maximumError": "5mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "2kb",
-                                    "maximumError": "4kb"
+                                    "maximumWarning": "150kb",
+                                    "maximumError": "150kb"
                                 }
                             ],
                             "outputHashing": "all"
@@ -97,8 +98,8 @@
                             "src/assets"
                         ],
                         "styles": [
-                          "@angular/material/prebuilt-themes/deeppurple-amber.css",
-                          "src/styles.scss"
+                            "@angular/material/prebuilt-themes/deeppurple-amber.css",
+                            "src/styles.scss"
                         ],
                         "scripts": [
 

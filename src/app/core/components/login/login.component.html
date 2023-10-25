@@ -5,7 +5,7 @@
         <h1>Bienvenido</h1>
         <form [formGroup]="loginForm">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Id de usuario" name="userId" formControlName="userId">
+                <input matInput placeholder="Id de usuario" name="userId" formControlName="userId" type="number">
                 <!-- <mat-error *ngIf="loginForm.get('userId')?.hasError('required')">Este campo es obligatorio</mat-error> -->
             </mat-form-field>
 

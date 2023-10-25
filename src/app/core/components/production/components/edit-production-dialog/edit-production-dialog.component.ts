@@ -1,6 +1,7 @@
 import { Component,Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AppService } from 'src/app/app.service';
 import { Product, Production, User } from 'src/app/core/models/interfaces';
 
 @Component({
@@ -17,99 +18,65 @@ export class EditProductionDialogComponent {
   selectedProduct: any;
   users: User[];
   products: Product[];
-  constructor( public dialogRef: MatDialogRef<EditProductionDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private _formBuilder: FormBuilder) { 
+  constructor( public dialogRef: MatDialogRef<EditProductionDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private _formBuilder: FormBuilder, public _appService: AppService) { 
     this.isCreating = data.isCreating;
     this.production = data.userProduction;
     this.dialogTitle = this.isCreating ? 'Crear producción' : 'Editar producción';
     this.selectedUser = this.production.user;
     this.selectedProduct = this.production.product;
+    this.users = []
+    this.products = [];
     console.log(this.selectedUser)
     this.productionForm = this._formBuilder.group({
       date: [this.production.date, [Validators.required]],
       user: [!this.isCreating ? this.selectedUser.id : '', [Validators.required]],
       quantity: [this.production.quantity, [Validators.required]],
-      product: [!this.isCreating ? this.selectedProduct.id : '', [Validators.required]],
+      product: [!this.isCreating ? this.selectedProduct.id : 'this.users[0]', [Validators.required]],
       
     });
-    this.users = [
-      
-    ]
-    this.products = [
-      {
-        "id": 1,
-        "name": 'Zapato',
-        "unitCompensation": 5,
-        "price": 100,
-        "packageCompensation": 400,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 2,
-        "name": 'Bota',
-        "unitCompensation": 7,
-        "price": 150,
-        "packageCompensation": 300,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 3,
-        "name": 'Sandalias',
-        "unitCompensation": 3,
-        "price": 50,
-        "packageCompensation": 200,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 4,
-        "name": 'Sandalias',
-        "unitCompensation": 3,
-        "price": 50,
-        "packageCompensation": 200,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 5,
-        "name": 'Sandalias',
-        "unitCompensation": 3,
-        "price": 50,
-        "packageCompensation": 200,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 6,
-        "name": 'Sandalias',
-        "unitCompensation": 3,
-        "price": 50,
-        "packageCompensation": 200,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 7,
-        "name": 'Sandalias',
-        "unitCompensation": 3,
-        "price": 50,
-        "packageCompensation": 200,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 8,
-        "name": 'Sandalias',
-        "unitCompensation": 3,
-        "price": 50,
-        "packageCompensation": 200,
-        "kind": 'Calzado'
-      },
-      {
-        "id": 9,
-        "name": 'Sandalias',
-        "unitCompensation": 3,
-        "price": 50,
-        "packageCompensation": 200,
-        "kind": 'Calzado'
-      },
-    ];
+    this.productionForm.controls['user'].setValue('Seleccionar usuario');
+  }
+
+  ngOnInit(): void {
+    this.getUsers();
+    this.getProducts();
   }
   
+  getUsers(): void {
+    this._appService.getUsers().subscribe({
+      next: (response: any) => {
+        console.log(response)
+        //this.loader = false;
+        this.users = response;
+        
+        //this.productionForm.controls['user'].setValue(this.users[0].id)
+        //despues obtener la cookie y luego verificar el token
+      },
+      error: (error: any) => {
+        if(error.status == 500){
+          //codigo para recargar la pagina automaticamente
+        }
+      },
+    });
+  }
+
+  getProducts(): void {
+    this._appService.getProducts().subscribe({
+      next: (response: any) => {
+        console.log(response)
+        //this.loader = false;
+        this.products = response;
+        //despues obtener la cookie y luego verificar el token
+      },
+      error: (error: any) => {
+        if(error.status == 500){
+          //codigo para recargar la pagina automaticamente
+        }
+      },
+    });
+  }
+
+
   onSaveClick(): void {
     // Puedes realizar acciones de guardado aquí, por ejemplo, enviar el formulario al servidor
     if(this.productionForm.invalid){

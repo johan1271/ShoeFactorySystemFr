@@ -5,13 +5,14 @@
     grid-template-rows: 60px 1fr;
     //background-color: aliceblue;
     height: 100%;
-    border-right: 0.5px solid rgb(219, 219, 219);
+    border-right: 0.5px solid $border-color;
     .title {
         display: flex;
         align-items: center;
         justify-content: center;
         //border-color: 1px solid rgb(219, 219, 219);
         background-color: $color-default-btn;
+        border-bottom: 0.5px solid $border-color;
         h4 {
             margin: 0;
             align-self: center;
@@ -21,6 +22,10 @@
     }
     .menu-items {
         background-color: $white;
+        .active-link {
+            background-color: $color-default-btn;
+            color: $white;
+        }
         .item {
             height: 40px;
             align-items: center;
@@ -29,11 +34,11 @@
             display: flex;
             gap: 10px;
             cursor: pointer;
-            color: #333;
+            //color: #333;
             transition: background-color 0.3s, color 0.3s;
             ;
             &:hover {
-                background-color: rgb(209, 209, 209);
+                background-color: $hover-item;
                 //color: $white;
             }
         }
