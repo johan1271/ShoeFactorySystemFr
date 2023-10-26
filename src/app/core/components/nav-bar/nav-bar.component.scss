@@ -14,13 +14,29 @@
     .content-end {
         display: flex;
         gap: 20px;
+        align-items: center;
         .content-user-rol {
-            //margin-right: 1rem;
+            display: flex;
+            align-items: center;
             color: $white;
+            .user-icon {
+                margin-right: 0.5rem;
+                font-size: 20px;
+            }
+            span {
+                font-size: 16px;
+            }
         }
-        .logout-icon {
+        .content-logout {
             cursor: pointer;
             color: $white;
+            .logout-icon {
+                font-size: 20px;
+                &:hover {
+                    color: $color-default-btn;
+                    transform: scale(1.2);
+                }
+            }
         }
     }
 }

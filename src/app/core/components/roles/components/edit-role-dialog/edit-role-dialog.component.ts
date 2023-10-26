@@ -21,10 +21,11 @@ export class EditRoleDialogComponent {
     this.dialogTitle = this.isCreating ? 'Crear rol' : 'Editar rol';
     
     this.roleForm = this._formBuilder.group({
+      id: [this.role.id,{value: this.role, disabled: true} ],
       name: [this.role.name, [ Validators.required, Validators.minLength(3), Validators.maxLength(50) ]],
       
     }); 
-
+    this.roleForm.get('id')?.disable();
   }
 
   onSaveClick(): void {

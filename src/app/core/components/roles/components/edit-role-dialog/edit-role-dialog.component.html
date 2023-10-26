@@ -2,9 +2,16 @@
 <div mat-dialog-content class="content-form">
 
     <form [formGroup]="roleForm" class="form">
+
+        <mat-form-field floatLabel="always" *ngIf="role.id">
+            <mat-label>ID</mat-label>
+            <input matInput type="number" formControlName="id" placeholder="ID del rol">
+            <mat-error *ngIf="roleForm.get('id')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+
         <mat-form-field>
             <mat-label>Nombre del rol</mat-label>
-            <input matInput type="text" formControlName="name" name="name" placeholder="Nombre del rol">
+            <input matInput type="text" formControlName="name" placeholder="Nombre del rol">
             <mat-error *ngIf="roleForm.get('name')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
 

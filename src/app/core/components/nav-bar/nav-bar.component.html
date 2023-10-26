@@ -5,12 +5,13 @@
 
     <div class="content-end">
         <div class="content-user-rol">
-            <span *ngIf="_appService.userData">Usuario: {{_appService.userData.first_name +' '+ _appService.userData.last_name}} </span>
+            <i class="fa-solid fa-user user-icon"></i>
+            <span *ngIf="_appService.userData">{{_appService.userData.first_name +' '+ _appService.userData.last_name}} </span>
             <!-- <span>Admin</span> -->
         </div>
 
-        <div class="logout-icon" (click)="logOut()">
-            <i class="fa-solid fa-right-from-bracket"></i>
+        <div class="content-logout" (click)="logOut()">
+            <i class="fa-solid fa-right-from-bracket logout-icon"></i>
         </div>
 
 
