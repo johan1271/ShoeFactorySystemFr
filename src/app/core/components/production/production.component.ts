@@ -4,8 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MatTable } from '@angular/material/table';
 import { AppService } from 'src/app/app.service';
-import { Production, User, userProduction } from '../../models/interfaces';
+import { AllProductions, Production, User, userProduction } from '../../models/interfaces';
 import { EditProductionDialogComponent } from './components/edit-production-dialog/edit-production-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
   selector: 'app-production',
@@ -20,11 +22,11 @@ export class ProductionComponent {
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   search:string = '';
   loader:boolean;
-  productions: userProduction[] = [];
+  productions: AllProductions[] = [];
   
-  displayedColumns: string[] = ['employeeName', 'productName', 'quantity','unit_price' ,'percentage', 'price', 'compensation', 'edit'];
+  displayedColumns: string[] = ['id', 'employeeName', 'rol','productName' ,'quantity', 'date', 'edit'];
 
-  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { 
+  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService, private _snackBar: SnackBarService) { 
     this.loader = true;
   }
 
@@ -40,8 +42,7 @@ export class ProductionComponent {
       next: (response: any) => {
         console.log(response)
         this.loader = false;
-        this.productions = response.production;
-        //despues obtener la cookie y luego verificar el token
+        this.productions = response;
       },
       error: (error: any) => {
         console.log(error);
@@ -74,25 +75,91 @@ export class ProductionComponent {
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        // console.log(result);
+      
+      if(!result){
+        return
+      }
 
-        // if(result.isCreating){
-        //   this.productions.push(result.data);
-          
-        //   return;
-        // }
+      if (result.isCreating) {
+        this.createProduction(result.data);
 
-        // const index = this.productions.findIndex(p => p. === result.data.id);
-        // if (index !== -1) {
-        //   // Utiliza el método splice para reemplazar el objeto en esa posición
-        //   this.productions.splice(index, 1, result.data);
-          
-        //   // Esto reemplazará el objeto en la posición 'index' con 'result'
-        // }
-        this.table.renderRows();
+      } else {
+
+        this.updateProduction(result.data);
+      
         // Aquí puedes realizar acciones con los datos editados, si es necesario
       }
+
     });
   }
+
+  createProduction(result: any){
+    let production = result;
+    const {id, ...newProduction} = production;
+    console.log(newProduction)
+    this._appService.addProduction(newProduction).subscribe({
+      next: (response: any) => {
+        console.log(response)
+        this._snackBar.openSnackBar('Produccion creada correctamente', 'Cerrar');
+        this.getProduction();
+        
+        // this.productions.push(response);
+        // this.table.renderRows();
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        if(error.status == 500){
+          //window.location.reload();
+          //codigo para recargar la pagina automaticamente
+        }
+
+        if(error.status == 422){
+          this._snackBar.openSnackBar('El usuario no puede producir este producto','Cerrar');
+        }
+
+      },
+      complete: () => {
+        console.log('complete');
+      }
+  
+    });      
+  }
+
+  updateProduction(result: any){
+    console.log(result)
+    
+    
+    this._appService.updateProduction(result).subscribe({
+      next: (response: any) => {
+        console.log(response)
+        this._snackBar.openSnackBar('Produccion actualizada correctamente', 'Cerrar');
+        this.getProduction();
+        
+        // this.productions.push(response);
+        // this.table.renderRows();
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        if(error.status == 500){
+          window.location.reload();
+          //codigo para recargar la pagina automaticamente
+        }
+
+        if(error.status == 422){
+          this._snackBar.openSnackBar('El usuario no puede producir este producto', 'Cerrar');
+        }
+
+      },
+      complete: () => {
+        console.log('complete');
+      }
+  
+    });      
+  }
+
+  
+
+  
 }

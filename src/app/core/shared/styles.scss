@@ -118,6 +118,8 @@ mat-card {
     }
 }
 
-// .mat-mdc-progress-spinner {
-//     --mdc-circular-progress-active-indicator-color: $colo;
-// }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

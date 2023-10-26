@@ -2,7 +2,7 @@ import { Component,Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AppService } from 'src/app/app.service';
-import { Product, Production, User } from 'src/app/core/models/interfaces';
+import { AllProductions, Product, Production, User, userProduction } from 'src/app/core/models/interfaces';
 
 @Component({
   selector: 'app-edit-production-dialog',
@@ -12,34 +12,46 @@ import { Product, Production, User } from 'src/app/core/models/interfaces';
 export class EditProductionDialogComponent {
   dialogTitle: string;
   isCreating: boolean;
-  production: Production;
+  production: AllProductions;
   productionForm: FormGroup;
   selectedUser: any = 'option2';
   selectedProduct: any;
   users: User[];
   products: Product[];
   constructor( public dialogRef: MatDialogRef<EditProductionDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private _formBuilder: FormBuilder, public _appService: AppService) { 
+
     this.isCreating = data.isCreating;
     this.production = data.userProduction;
     this.dialogTitle = this.isCreating ? 'Crear producción' : 'Editar producción';
-    this.selectedUser = this.production.user;
-    this.selectedProduct = this.production.product;
+    this.selectedUser = this.production.user_id
+    this.selectedProduct = this.production.product_id;
+    console.log(this.production)
     this.users = []
     this.products = [];
-    console.log(this.selectedUser)
+
     this.productionForm = this._formBuilder.group({
-      date: [this.production.date, [Validators.required]],
-      user: [!this.isCreating ? this.selectedUser.id : '', [Validators.required]],
+      id: [this.production.id,{value: this.production, disabled: true} ],
+      date: [this.production.date ? new Date(this.production.date) : new Date(), [Validators.required]],
+      user: [!this.isCreating ? this.selectedUser : '', [Validators.required]],
       quantity: [this.production.quantity, [Validators.required]],
-      product: [!this.isCreating ? this.selectedProduct.id : 'this.users[0]', [Validators.required]],
-      
+      product: [!this.isCreating ? this.selectedProduct : '', [Validators.required]],
     });
-    this.productionForm.controls['user'].setValue('Seleccionar usuario');
+    
+    if(this._appService.userData.role != 'Administrador'){
+      this.productionForm.controls['user'].setValue(this._appService.userData.id);
+      console.log(this._appService.userData.id)
+      this.productionForm.controls['user'].disable();
+    }
+
+    this.productionForm.get('id')?.disable() 
+   
+    
   }
 
   ngOnInit(): void {
     this.getUsers();
     this.getProducts();
+
   }
   
   getUsers(): void {
@@ -49,7 +61,7 @@ export class EditProductionDialogComponent {
         //this.loader = false;
         this.users = response;
         
-        //this.productionForm.controls['user'].setValue(this.users[0].id)
+        
         //despues obtener la cookie y luego verificar el token
       },
       error: (error: any) => {
@@ -66,6 +78,11 @@ export class EditProductionDialogComponent {
         console.log(response)
         //this.loader = false;
         this.products = response;
+
+        if(this._appService.userData.role != 'Administrador'){
+          this.products = this.products.filter((product: Product) => product.kind == this._appService.userData.role);
+        }
+       
         //despues obtener la cookie y luego verificar el token
       },
       error: (error: any) => {
@@ -85,16 +102,23 @@ export class EditProductionDialogComponent {
       return;
     }
 
-    const formData = this.productionForm.value;
+    if(this._appService.userData.role == 'Administrador'){
+
+    }
+
+    const formData = this.productionForm.getRawValue();
     console.log(formData)
     // Crea un objeto con los datos del formulario
     
-    const production: Production = {
+
+    
+
+    const production = {
       id: this.production.id,
-      date: formData.date + new Date(),
-      product: formData.product,
+      date: this.formateDate(formData.date),
+      product_id: formData.product,
       quantity: formData.quantity,
-      user: formData.user,
+      user_id: formData.user,
     };
     
     this.dialogRef.close({data: production, isCreating: this.isCreating});
@@ -124,5 +148,11 @@ export class EditProductionDialogComponent {
     // Agrega más lógica de validación personalizada aquí según tus requisitos
   
     return '';
+  }
+
+  formateDate(date: Date): any{
+  
+    const formattedDate = date.toISOString().slice(0, 10);
+    return formattedDate;
   }
 }

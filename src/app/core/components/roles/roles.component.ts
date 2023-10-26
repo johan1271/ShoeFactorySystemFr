@@ -6,6 +6,7 @@ import { Role } from '../../models/interfaces';
 import { EditRoleDialogComponent } from './components/edit-role-dialog/edit-role-dialog.component';
 import { AppService } from 'src/app/app.service';
 import { MatTable } from '@angular/material/table';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
   selector: 'app-roles',
@@ -22,7 +23,7 @@ export class RolesComponent {
   loader:boolean;
   roles: Role[] = [
   ];
-  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog, public _appService: AppService) { 
+  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog, public _appService: AppService, private _snackBar: SnackBarService) { 
     this.loader = true;
   }
 
@@ -83,13 +84,15 @@ export class RolesComponent {
     console.log(result)
     this._appService.addRoles({name: result.name}).subscribe({
       next: (response: any) => {
-        console.log(response);
+        
         this.roles.push(response);
+        this._snackBar.openSnackBar('Rol creado', 'Cerrar');
+        this.table.renderRows();
       },
       error: (error: any) => {
 
         if(error.status === 422){
-          alert('Ya existe');
+          this._snackBar.openSnackBar('Ya existe este rol', 'Cerrar');
         } 
         console.log(error);
       },
@@ -106,6 +109,7 @@ export class RolesComponent {
         console.log(response);
         const index = this.roles.findIndex(role => role.id === response.id);
         this.roles[index] = response;
+        this._snackBar.openSnackBar('Rol actualizado', 'Cerrar');
         this.table.renderRows();
       },
       error: (error: any) => {

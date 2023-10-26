@@ -13,19 +13,19 @@
         </mat-form-field>
         <mat-form-field floatLabel="always">
             <mat-label>Precio</mat-label>
-            <input matInput type="number" formControlName="price" placeholder="0">
+            <input matInput type="number" formControlName="price" placeholder="0" min="0">
             <span matTextPrefix>$&nbsp;</span>
             <mat-error *ngIf="productForm.get('price')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
         <mat-form-field floatLabel="always">
             <mat-label>Compensación unitaria</mat-label>
-            <input matInput type="number" formControlName="unitCompensation" placeholder="0">
+            <input matInput type="number" formControlName="unitCompensation" placeholder="0" min="0">
             <mat-error *ngIf="productForm.get('unitCompensation')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
             <span matTextPrefix>$&nbsp;</span>
         </mat-form-field>
         <mat-form-field floatLabel="always">
             <mat-label>Compensación por paquete</mat-label>
-            <input matInput type="number" formControlName="packageCompensation" placeholder="0">
+            <input matInput type="number" formControlName="packageCompensation" placeholder="0" min="0">
             <mat-error *ngIf="productForm.get('packageCompensation')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
             <span matTextPrefix>$&nbsp;</span>
         </mat-form-field>

@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from '../../services/snack-bar.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent {
   
   loginForm: FormGroup;
-  constructor(public _appService: AppService, private cookieService: CookieService, private _router: Router, private snackBar: MatSnackBar) { 
+  constructor(public _appService: AppService, private cookieService: CookieService, private _router: Router, private _snackBar: SnackBarService) { 
     this.loginForm = new FormGroup({
       userId: new FormControl('', [Validators.required]),
     });
@@ -21,7 +22,8 @@ export class LoginComponent {
   ngOnInit(): void {
     //this.getLogin()
     if(this.cookieService.check('userToken')){
-      this._router.navigate(['/home/users']);
+      console.log("entra aca")
+      this._router.navigate(['/home/productions']);
       return
     }
   }
@@ -33,7 +35,7 @@ export class LoginComponent {
       // Marca todos los campos como tocados para que se muestren los mensajes de error
       this.loginForm.markAllAsTouched();
       
-      this.openSnackBar('El campo es obligatorio');
+      this._snackBar.openSnackBar('El campo es obligatorio', 'Cerrar', 5000);
       return;
     }
 
@@ -43,14 +45,14 @@ export class LoginComponent {
       next: (response: any) => {
         console.log(response);
         this.cookieService.set('userToken', response);
-        this._router.navigate(['/home']);
+        this._router.navigate(['/home/productions']);
         //despues obtener la cookie y luego verificar el token
       },
       error: (error: any) => {
         console.log(error);
 
         if(error.status == 404){
-          this.openSnackBar('El usuario no existe');
+          this._snackBar.openSnackBar('El usuario no existe', 'Cerrar', 5000);
         }
       },
       complete: () => {
@@ -59,10 +61,6 @@ export class LoginComponent {
     });
   }
 
-  openSnackBar(message: string) {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 2000,
-    });
-  }
+  
 
 }

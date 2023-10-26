@@ -1,2 +1,8 @@
 @import '../../shared/colors.scss';
 @import '../../shared/styles.scss';
+button.disabled-button {
+    opacity: 0.4;
+    cursor: not-allowed;
+    /* Cambia el cursor a 'no permitido' para indicar que no se puede hacer clic */
+    /* Agrega cualquier otro estilo que desees para diferenciar visualmente los botones deshabilitados */
+}

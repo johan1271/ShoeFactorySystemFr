@@ -21,6 +21,12 @@ export class AppService {
     return this.http.post(this.getUrl('products'), JSON.stringify(product), httpOptions);
   }
 
+  putProducts(product: any): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.put(this.getPutUrl('products', product.id), JSON.stringify(product), httpOptions);
+  }
+
+
   getUrl(any: string): string {
     let str = `${this.apiUrl}${any}?Authorization=Bearer ${this.cookieService.get('userToken')}`
     
@@ -64,7 +70,17 @@ export class AppService {
 
   getProduction(): Observable<any> {
     const httpOptions = this.getHeaders();
-    return this.http.get(this.getUrl('productions'), httpOptions);
+    return this.http.get(this.getUrl('all_productions'), httpOptions);
+  }
+
+  addProduction(production: any): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.post(this.getUrl('productions'), JSON.stringify(production), httpOptions);
+  }
+
+  updateProduction(production: any): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.put(this.getPutUrl('productions', production.id), JSON.stringify(production), httpOptions);
   }
 
   getLogin(id: number): Observable<any> {

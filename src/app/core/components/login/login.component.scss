@@ -1,3 +1,4 @@
+@import '../../shared/styles.scss';
 .content-login {
     background-color: #f3f5f9;
     display: flex;
@@ -39,10 +40,4 @@
 .box-login button:hover {
     background-color: #0a918d;
     /* Cambio de color al pasar el cursor sobre el botón */
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }

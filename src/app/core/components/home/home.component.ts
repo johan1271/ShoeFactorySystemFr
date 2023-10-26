@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AppService } from 'src/app/app.service';
 
@@ -13,4 +13,5 @@ export class HomeComponent {
   ngOnInit(): void {
   }
 
+  
 }

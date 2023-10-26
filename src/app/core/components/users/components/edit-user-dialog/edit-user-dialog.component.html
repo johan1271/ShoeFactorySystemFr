@@ -3,19 +3,19 @@
     <form [formGroup]="userForm" class="form">
         <mat-form-field floatLabel="always">
             <mat-label>ID</mat-label>
-            <input matInput type="text" formControlName="id" name="name" placeholder="Identificación">
+            <input matInput type="text" formControlName="id" placeholder="Identificación">
             <mat-error *ngIf="userForm.get('id')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
 
         <mat-form-field floatLabel="always">
             <mat-label>Nombre</mat-label>
-            <input matInput type="text" formControlName="firstName" name="name" placeholder="Nombre">
+            <input matInput type="text" formControlName="firstName" placeholder="Nombre">
             <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
 
         <mat-form-field floatLabel="always">
             <mat-label>Apellido</mat-label>
-            <input matInput type="text" formControlName="lastName" name="lastName" placeholder="Apellido">
+            <input matInput type="text" formControlName="lastName" placeholder="Apellido">
             <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
 

@@ -6,6 +6,7 @@ import { User } from '../../models/interfaces';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { FloatLabelType } from '@angular/material/form-field';
 import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
   selector: 'app-users',
@@ -28,7 +29,7 @@ export class UsersComponent {
 
   displayedColumns: string[] = ['id', 'roleName', 'firstName', 'lastName', 'active', 'edit'];
 
-  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) {
+  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService, private _snackBar: SnackBarService) {
     this.loader = true;
   }
 
@@ -106,6 +107,7 @@ export class UsersComponent {
         console.log(response)
         response.role = this.getRoleById(response.role_id);
         this.users = [...this.users, response];
+        this._snackBar.openSnackBar('Usuario creado correctamente', 'Cerrar', 5000);
         //despues obtener la cookie y luego verificar el token
       },
       error: (error: any) => {
@@ -131,6 +133,7 @@ export class UsersComponent {
         response.role = this.getRoleById(response.role_id);
         const index = this.users.findIndex(role => role.id === response.id);
         this.users[index] = response;
+        this._snackBar.openSnackBar('Usuario actualizado correctamente', 'Cerrar', 5000);
         this.table.renderRows();
       },
       error: (error: any) => {

@@ -1,25 +1,29 @@
 <h2 mat-dialog-title>{{dialogTitle}}</h2>
 <div mat-dialog-content class="content-form">
     <form [formGroup]="productionForm" class="form">
-
+        <mat-form-field *ngIf="production.id">
+            <mat-label>ID</mat-label>
+            <input matInput type="number" formControlName="id" placeholder="Id de la produccion">
+            <mat-error *ngIf="productionForm.get('id')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
         <mat-form-field floatLabel="always">
             <mat-label>Usuario</mat-label>
             <mat-select formControlName="user">
                 <!-- <mat-option value="" selected>Seleccionar usuario</mat-option> -->
-                <mat-option *ngFor="let user of users" [value]="user.id">{{ user.first_name }}</mat-option>
+                <mat-option *ngFor="let user of users" [value]="user.id">{{ user.first_name +' '+ user.last_name }}</mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field floatLabel="always">
             <mat-label>Cantidad</mat-label>
-            <input matInput type="text" formControlName="quantity" name="name" placeholder="Nombre">
+            <input matInput type="number" formControlName="quantity" placeholder="Cantidad del producto" min="0">
             <mat-error *ngIf="productionForm.get('quantity')?.hasError('required')">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
             <mat-label>Selecciona una fecha</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="date">
-            <mat-hint>MM/DD/YYYY</mat-hint>
+            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker class="color-datepicker"></mat-datepicker>
         </mat-form-field>

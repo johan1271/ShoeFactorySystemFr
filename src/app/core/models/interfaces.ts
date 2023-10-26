@@ -29,6 +29,19 @@ export interface Production {
     user: User;
 }
 
+export interface AllProductions{
+    id: number;
+    user_id: number;
+    user_first_name: string;
+    user_last_name: string;
+    user_role: string;
+    product_id: number;
+    product_name: string;
+    quantity: number;
+    date: string;
+
+}
+
 export interface userProduction {
     compensation: number;
     employee_name: string;

@@ -1,2 +1,17 @@
 @import '../../shared/colors.scss';
 @import '../../shared/styles.scss';
+.active,
+.inactive {
+    color: $white;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.inactive {
+    background-color: rgb(224, 39, 39);
+}
+
+.active {
+    background-color: rgb(0, 128, 0);
+}

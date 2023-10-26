@@ -6,6 +6,7 @@ import { Product } from '../../models/interfaces';
 import { EditProductDialogComponent } from './components/edit-product-dialog/edit-product-dialog.component';
 import { MatTable } from '@angular/material/table';
 import { AppService } from 'src/app/app.service';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class ProductsComponent {
   loader: boolean;
   displayedColumns: string[] = ['id', 'name', 'unitCompensation', 'price', 'packageCompensation', 'kind', 'edit'];
 
-  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService) { 
+  constructor(private _formBuilder: FormBuilder, public dialogProduct: MatDialog, public _appService: AppService, private _snackBar: SnackBarService) { 
     this.loader = true;
   }
 
@@ -72,17 +73,13 @@ export class ProductsComponent {
 
         if(result.isCreating){
           this.createProduct(result.data);
-          //this.products.push(result.data);
+          
           
         } else{
-          const index = this.products.findIndex(p => p.id === result.data.id);
-          if (index !== -1) {
-            // Utiliza el método splice para reemplazar el objeto en esa posición
-            this.products.splice(index, 1, result.data);
-            // Esto reemplazará el objeto en la posición 'index' con 'result'
-          }
+
+          this.updateProduct(result.data);
         }
-        this.table.renderRows();
+        
 
         
         
@@ -94,19 +91,48 @@ export class ProductsComponent {
   createProduct(result: any): void {
     let product = result;
     const {id, ...newProduct} = product;
-    console.log(result)
+    
     this._appService.addProducts(product).subscribe({
       next: (response: any) => {
         console.log(response)
        //response.role = this.getRoleById(response.role_id);
         this.products = [...this.products, response];
+        this._snackBar.openSnackBar('Producto creado correctamente', 'Cerrar', 5000);
+        this.table.renderRows();
+      },
+      error: (error: any) => {
         
+
+        if(error.status == 500){
+          window.location.reload();
+        }
+
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    });
+  }
+
+  updateProduct(result: any): void {
+    let product = result;
+    
+    this._appService.putProducts(product).subscribe({
+      next: (response: any) => {
+        console.log(response)
+        //response.role = this.getRoleById(response.role_id);
+        const index = this.products.findIndex(p => p.id === response.id);
+        
+        this.products[index] = response;
+
+        this._snackBar.openSnackBar('Producto actualizado correctamente', 'Cerrar', 5000);
+        this.table.renderRows();
       },
       error: (error: any) => {
         console.log(error);
 
         if(error.status == 500){
-          
+          window.location.reload();
         }
 
       },
