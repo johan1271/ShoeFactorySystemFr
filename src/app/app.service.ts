@@ -29,7 +29,7 @@ export class AppService {
 
   getUrl(any: string): string {
     let str = `${this.apiUrl}${any}?Authorization=Bearer ${this.cookieService.get('userToken')}`
-    
+
     return str
   }
 
@@ -41,6 +41,11 @@ export class AppService {
   getUsers(): Observable<any> {
     const httpOptions = this.getHeaders();
     return this.http.get(this.getUrl('users'), httpOptions);
+  }
+
+  getUserById(id: number): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(this.getUrl(`users/${id}`), httpOptions);
   }
 
   addUsers(user: any): Observable<any> {
@@ -83,6 +88,21 @@ export class AppService {
     return this.http.put(this.getPutUrl('productions', production.id), JSON.stringify(production), httpOptions);
   }
 
+  getAllProductions(): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(this.getUrl('productions'), httpOptions);
+  }
+
+  getProductionById(id: number): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(this.getUrl(`productions/${id}`), httpOptions);
+  }
+
+  getProductionByDate(id:number,startDate: string, endDate: string): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(`${this.apiUrl}productions/${id}?start_date=${startDate}&end_date=${endDate}&Authorization=Bearer ${this.cookieService.get('userToken')}`, httpOptions);
+  }
+
   getLogin(id: number): Observable<any> {
     const httpOptions = this.getHeaders();
 
@@ -99,7 +119,7 @@ export class AppService {
         return response;
       }),
       catchError((error: any) => {
-        
+
         return error;
       })
     );

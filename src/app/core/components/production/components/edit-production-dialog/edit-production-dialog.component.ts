@@ -102,10 +102,6 @@ export class EditProductionDialogComponent {
       return;
     }
 
-    if(this._appService.userData.role == 'Administrador'){
-
-    }
-
     const formData = this.productionForm.getRawValue();
     console.log(formData)
     // Crea un objeto con los datos del formulario

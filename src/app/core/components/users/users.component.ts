@@ -22,6 +22,7 @@ export class UsersComponent {
   @ViewChild('edit-btn') editBtn: ElementRef = {} as ElementRef;
   search = '';
   loader:boolean;
+  searchById: boolean = false;
   //dataSource = new MatTableDataSource(users);
 
 
@@ -166,15 +167,37 @@ export class UsersComponent {
   }
 
   searchUserById(event: Event): void {
-    const id = (event.target as HTMLInputElement).value;
+    const id = parseInt((event.target as HTMLInputElement).value);
     console.log(id)
     if (id) {
-      //this.users = this.users.filter(p => p.id === Number(id));
 
-      // this._appService.getUserById(id).subscribe((response: any) => {
-      //   console.log(response);
-      //   //this.products = response;
-      // });
+      this._appService.getUserById(id).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          this.users = [response];
+          //despues obtener la cookie y luego verificar el token
+        },
+        error: (error: any) => {
+          console.log(error);
+
+          if(error.status == 500){
+            //codigo para recargar la pagina automaticamente
+          }
+
+        },
+        
+      });
+
+    } else {
+      this.getUsers();
+    }
+
+  }
+
+  updateSearch(): void {
+    
+    if(this.search == ''){
+      this.getUsers();
     }
   }
 }

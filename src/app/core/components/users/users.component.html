@@ -7,7 +7,7 @@
         <div class="content-form">
             <mat-form-field class="search">
                 <mat-label>Buscar usuarios</mat-label>
-                <input matInput placeholder="Ex. 12345678-9" [(ngModel)]="search" (keyup.enter)="searchUserById($event)">
+                <input matInput placeholder="Ex. 12345678-9" [(ngModel)]="search" (keyup.enter)="searchUserById($event)" (change)="updateSearch()">
             </mat-form-field>
 
             <button mat-raised-button class="new-btn" (click)="openDialog(true, $event)">

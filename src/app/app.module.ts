@@ -36,6 +36,8 @@ import { AuthGuard } from './core/guards/auth.guard';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TruncateTextPipe } from './core/pipes/truncate-text.pipe';
+import { CustomSortPipe } from './core/pipes/custom-sort.pipe';
 
 
 
@@ -59,6 +61,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     EditProductionDialogComponent,
     LoginComponent,
     HomeComponent,
+    TruncateTextPipe,
+    CustomSortPipe,
     
   ],
   imports: [

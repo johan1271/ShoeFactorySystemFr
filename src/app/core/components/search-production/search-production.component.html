@@ -1,1 +1,62 @@
-<p>search-production works!</p>
+<div class="dynamic-content">
+
+    <h1>Lista de producciones</h1>
+
+    <div class="content-main">
+
+        <div class="content-form-production">
+
+            <form [formGroup]="form" class="form">
+                <mat-form-field class="search">
+                    <mat-label>Buscar producción </mat-label>
+                    <input matInput placeholder="Ex. 12345678-9" formControlName="search">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Ingresa el rango de fechas</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Start date" formControlName="startDate">
+                        <input matEndDate placeholder="End date" formControlName="endDate">
+                    </mat-date-range-input>
+
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <button mat-raised-button color="add" class="new-btn" (click)="searchProduction()">
+                    <mat-icon>search</mat-icon>
+                    Buscar
+                </button>
+            </form>
+
+        </div>
+
+        <div class="content-production">
+            <div class="card" *ngFor="let production of productions | customSort: 'quantity'; let i = index">
+                <div class="card-content">
+
+                    <h2 class="title-card" [ngClass]="{'bg-incompleted': production.quantity < 12 }"> {{production.quantity == 12 ? 'Paquete ' + '#' + i : 'Paq. incompleto'}} </h2>
+                    <span class="user-name">{{ production.employee_name }}</span>
+
+                    <div class="content-fields">
+                        <div class="box-atr">
+                            <span class="attribute">{{ production.name }}</span>
+                            <span class="label-atr">Producto</span>
+                        </div>
+                        <div class="box-atr">
+                            <span class="attribute">{{ production.quantity }}</span>
+                            <span class="label-atr">Cantidad</span>
+                        </div>
+
+                        <div class="box-atr">
+                            <span class="attribute">{{ production.compensation.toString() | truncateText: 6 }}</span>
+                            <span class="label-atr">Comp.</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
