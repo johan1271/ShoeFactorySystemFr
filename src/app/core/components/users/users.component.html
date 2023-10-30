@@ -70,6 +70,13 @@
                 </mat-progress-spinner>
             </mat-card>
         </div>
+
+        <div class="content-empty" *ngIf="users.length < 1">
+            <div class="empty">
+                <mat-icon class="icon">search_off</mat-icon>
+                <span>No se encontraron resultados</span>
+            </div>
+        </div>
     </div>
 
 </div>

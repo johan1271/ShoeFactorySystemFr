@@ -7,6 +7,7 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent {
+  
   constructor(public _appService: AppService) { 
     
   }

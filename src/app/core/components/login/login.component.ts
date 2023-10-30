@@ -11,7 +11,7 @@ import { SnackBarService } from '../../services/snack-bar.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  
+  loading: boolean = false;
   loginForm: FormGroup;
   constructor(public _appService: AppService, private cookieService: CookieService, private _router: Router, private _snackBar: SnackBarService) { 
     this.loginForm = new FormGroup({
@@ -30,11 +30,11 @@ export class LoginComponent {
 
   login(){
     
-
+    this.loading = true;
     if(this.loginForm.invalid){
       // Marca todos los campos como tocados para que se muestren los mensajes de error
       this.loginForm.markAllAsTouched();
-      
+      this.loading = false;
       this._snackBar.openSnackBar('El campo es obligatorio', 'Cerrar', 5000);
       return;
     }
@@ -44,6 +44,7 @@ export class LoginComponent {
     this._appService.getLogin(userId).subscribe({
       next: (response: any) => {
         console.log(response);
+        this.loading = false;
         this.cookieService.set('userToken', response);
         this._router.navigate(['/home/productions']);
         //despues obtener la cookie y luego verificar el token
@@ -55,9 +56,7 @@ export class LoginComponent {
           this._snackBar.openSnackBar('El usuario no existe', 'Cerrar', 5000);
         }
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
   }
 

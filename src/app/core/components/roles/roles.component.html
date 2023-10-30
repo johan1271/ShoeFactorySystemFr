@@ -16,7 +16,7 @@
 
         </div>
 
-        <div class="content-table" *ngIf="roles">
+        <div class="content-table">
 
             <table mat-table [dataSource]="roles | filter: search: ['id', 'name']" class="table">
                 <ng-container matColumnDef="id">
@@ -51,6 +51,13 @@
                 <mat-progress-spinner mode="indeterminate">
                 </mat-progress-spinner>
             </mat-card>
+        </div>
+
+        <div class="content-empty" *ngIf="roles.length < 1 && !loader">
+            <div class="empty">
+                <mat-icon class="icon">search_off</mat-icon>
+                <span>No se encontraron resultados</span>
+            </div>
         </div>
     </div>
 

@@ -65,6 +65,20 @@
                 background: $color-dark-bg;
             }
         }
+        .content-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .empty {
+                display: flex;
+                align-items: center;
+                span,
+                .icon {
+                    font-size: 20px;
+                    color: $color-dark-bg;
+                }
+            }
+        }
     }
 }
 

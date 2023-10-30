@@ -40,8 +40,8 @@
                 <div class="card-content">
 
                     <div class="content-title">
-                        <h2 class="title-card" [ngClass]="{'bg-incompleted': production.quantity < 12 }"> {{production.quantity == 12 ? 'Paquete ' + '#' + i : 'Paq. incompleto'}} </h2>
-                        <button mat-raised-button class="new-btn" (click)="generatePDF(production)">
+                        <h2 class="title-card" [ngClass]="{'bg-incompleted': production.quantity < 12 }"> {{production.quantity == 12 ? 'Paquete ' + '#' + (i+1) : 'Paq. incompleto'}} </h2>
+                        <button mat-raised-button class="new-btn" (click)="generatePDF(production, i+1)" *ngIf="production.quantity == 12">
                             <mat-icon>picture_as_pdf</mat-icon>
                         </button>
                     </div>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="content-empty">
-            <div class="empty" *ngIf="productions.production.length < 1">
+            <div class="empty" *ngIf="productions.production.length < 1 && !loader">
                 <mat-icon class="icon">search_off</mat-icon>
                 <span>No se encontraron resultados</span>
             </div>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="content-pdf">
-            <button mat-raised-button class="new-btn" (click)="generatePDF()">
+            <button mat-raised-button class="new-btn" (click)="generateAllPDF()" *ngIf="productions.production.length > 0">
                 <mat-icon>picture_as_pdf</mat-icon>
                 Generar PDF
             </button>
