@@ -36,11 +36,13 @@
             cursor: pointer;
             //color: #333;
             transition: background-color 0.3s, color 0.3s;
-            ;
             &:hover {
                 background-color: $hover-item;
                 //color: $white;
             }
+            // .icon {
+            //     color: $color-default-btn !important;
+            // }
         }
     }
 }

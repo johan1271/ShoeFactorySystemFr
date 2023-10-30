@@ -124,7 +124,7 @@ export class SearchProductionComponent {
     this.form['controls']['endDate'].reset();
   }
 
-  generatePDF() {
-    
+  generatePDF(production?: userProduction) {
+    console.log(production);
   }
 }

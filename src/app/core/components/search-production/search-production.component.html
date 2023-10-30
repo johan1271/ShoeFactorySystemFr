@@ -39,7 +39,13 @@
             <div class="card" *ngFor="let production of productions.production | customSort: 'quantity'; let i = index">
                 <div class="card-content">
 
-                    <h2 class="title-card" [ngClass]="{'bg-incompleted': production.quantity < 12 }"> {{production.quantity == 12 ? 'Paquete ' + '#' + i : 'Paq. incompleto'}} </h2>
+                    <div class="content-title">
+                        <h2 class="title-card" [ngClass]="{'bg-incompleted': production.quantity < 12 }"> {{production.quantity == 12 ? 'Paquete ' + '#' + i : 'Paq. incompleto'}} </h2>
+                        <button mat-raised-button class="new-btn" (click)="generatePDF(production)">
+                            <mat-icon>picture_as_pdf</mat-icon>
+                        </button>
+                    </div>
+
                     <span class="user-name">{{ production.employee_name }}</span>
 
                     <div class="content-fields">
