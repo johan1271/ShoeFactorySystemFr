@@ -128,7 +128,7 @@ export class AppService {
 
   }
 
-  public getHeaders(token?: string): any {
+  public getHeaders(): any {
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

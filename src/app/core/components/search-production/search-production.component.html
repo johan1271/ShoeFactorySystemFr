@@ -9,18 +9,19 @@
             <form [formGroup]="form" class="form">
                 <mat-form-field class="search">
                     <mat-label>Buscar producción </mat-label>
-                    <input matInput placeholder="Ex. 12345678-9" formControlName="search">
+                    <input matInput placeholder="Ex. 12345678-9" formControlName="search" (change)="updateSearch()">
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Ingresa el rango de fechas</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
-                        <input matStartDate placeholder="Start date" formControlName="startDate">
-                        <input matEndDate placeholder="End date" formControlName="endDate">
+                        <input matStartDate placeholder="Start date" formControlName="startDate" readonly>
+                        <input matEndDate placeholder="End date" formControlName="endDate" readonly>
                     </mat-date-range-input>
 
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
+                    <button matIconSuffix mat-icon-button (click)="clearDates()"><mat-icon>clear</mat-icon></button>
                 </mat-form-field>
                 <button mat-raised-button color="add" class="new-btn" (click)="searchProduction()">
                     <mat-icon>search</mat-icon>
@@ -29,9 +30,13 @@
             </form>
 
         </div>
-
+        <mat-card *ngIf="loader">
+            <mat-progress-spinner mode="indeterminate">
+            </mat-progress-spinner>
+        </mat-card>
         <div class="content-production">
-            <div class="card" *ngFor="let production of productions | customSort: 'quantity'; let i = index">
+
+            <div class="card" *ngFor="let production of productions.production | customSort: 'quantity'; let i = index">
                 <div class="card-content">
 
                     <h2 class="title-card" [ngClass]="{'bg-incompleted': production.quantity < 12 }"> {{production.quantity == 12 ? 'Paquete ' + '#' + i : 'Paq. incompleto'}} </h2>
@@ -57,6 +62,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="content-empty">
+            <div class="empty" *ngIf="productions.production.length < 1">
+                <mat-icon class="icon">search_off</mat-icon>
+                <span>No se encontraron resultados</span>
+            </div>
+        </div>
     </div>
 
+    <div class="content-total">
+
+        <div class="total">
+            <span class="label">Compensación total: {{ productions.total_compensation }}</span>
+
+        </div>
+
+        <div class="content-pdf">
+            <button mat-raised-button class="new-btn" (click)="generatePDF()">
+                <mat-icon>picture_as_pdf</mat-icon>
+                Generar PDF
+            </button>
+        </div>
+    </div>
 </div>

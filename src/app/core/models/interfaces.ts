@@ -52,3 +52,8 @@ export interface userProduction {
     unit_price: number;
 }
 
+export interface productionsByUser {
+    production: userProduction[];
+    total_compensation: number;
+}
+

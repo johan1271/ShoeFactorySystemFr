@@ -62,17 +62,16 @@ export class RolesComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      
       if(result){
         if(result.isCreating){
 
           this.createRoles(result.data);
           
         }else{
-          console.log("editing")
+          
           this.updateRoles(result.data);
-          // const index = this.roles.findIndex(role => role.id === result.data.id);
-          // this.roles[index] = result.data;
+          
         }
         
       }
@@ -81,7 +80,7 @@ export class RolesComponent {
   }
 
   createRoles(result:any){
-    console.log(result)
+    
     this._appService.addRoles({name: result.name}).subscribe({
       next: (response: any) => {
         
@@ -94,11 +93,9 @@ export class RolesComponent {
         if(error.status === 422){
           this._snackBar.openSnackBar('Ya existe este rol', 'Cerrar');
         } 
-        console.log(error);
+        
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     }); 
   }
 
@@ -119,9 +116,7 @@ export class RolesComponent {
         } 
         console.log(error);
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     }); 
   }
 
