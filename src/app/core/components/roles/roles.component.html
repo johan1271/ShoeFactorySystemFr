@@ -6,7 +6,7 @@
         <div class="content-form">
             <mat-form-field class="search">
                 <mat-label>Buscar</mat-label>
-                <input matInput placeholder="Ex. 12345678-9" [(ngModel)]="search" (keyup.enter)="searchRoleById($event)">
+                <input matInput placeholder="Ex. 12345678-9" [(ngModel)]="search" (keyup.enter)="searchRoleById($event)" (change)="updateSearch()">
             </mat-form-field>
 
             <button mat-raised-button color="add" class="new-btn" (click)="openRoleDialog(true)">

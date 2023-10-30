@@ -152,14 +152,34 @@ export class ProductionComponent {
         }
 
       },
-      complete: () => {
-        console.log('complete');
-      }
-  
+
     });      
   }
 
-  
+  searchProductionById(event: Event){
+    const id = parseInt((event.target as HTMLInputElement).value);
+    if(id == null || id == undefined || Number.isNaN(id)){
+      return
+    }
 
+    if (id) {
+      this._appService.getAllProductionsById(id).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.productions = [response];
+        },
+        error: (error: any) => {
+          console.log(error);
+        },
   
+      });
+    }
+  }
+
+  updateSearch(): void {
+    
+    if(this.search == ''){
+      this.getProduction();
+    }
+  }
 }

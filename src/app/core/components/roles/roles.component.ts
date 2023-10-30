@@ -121,9 +121,32 @@ export class RolesComponent {
   }
 
   searchRoleById(event: Event){
-    const id = (event.target as HTMLInputElement).value;
-    console.log(id)
+    const id = parseInt((event.target as HTMLInputElement).value);
+    if(id == null || id == undefined || Number.isNaN(id)){
+      return
+    }
+
+    if (id) {
+      this._appService.getRoleById(id).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.roles = [response];
+        },
+        error: (error: any) => {
+          console.log(error);
+        },
+        complete: () => {
+          console.log('complete');
+        }
+      });
+    }
   }
 
+
+  updateSearch(){
+    if(this.search === ''){
+      this.getRoles(); 
+    }
+  }
   
 }

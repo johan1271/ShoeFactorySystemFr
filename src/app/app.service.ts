@@ -16,6 +16,11 @@ export class AppService {
     return this.http.get(this.getUrl('products'), httpOptions);
   }
 
+  getProductById(id: number): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(this.getUrl(`products/${id}`), httpOptions);
+  }
+
   addProducts(product: any): Observable<any> {
     const httpOptions = this.getHeaders();
     return this.http.post(this.getUrl('products'), JSON.stringify(product), httpOptions);
@@ -63,6 +68,11 @@ export class AppService {
     return this.http.get(this.getUrl('roles'), httpOptions);
   }
 
+  getRoleById(id: number): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(this.getUrl(`roles/${id}`), httpOptions);
+  }
+
   addRoles(role: any): Observable<any> {
     const httpOptions = this.getHeaders();
     return this.http.post(this.getUrl('roles'), JSON.stringify(role), httpOptions);
@@ -76,6 +86,11 @@ export class AppService {
   getProduction(): Observable<any> {
     const httpOptions = this.getHeaders();
     return this.http.get(this.getUrl('all_productions'), httpOptions);
+  }
+
+  getAllProductionsById(id:number): Observable<any> {
+    const httpOptions = this.getHeaders();
+    return this.http.get(this.getUrl(`all_productions/${id}`), httpOptions);
   }
 
   addProduction(production: any): Observable<any> {

@@ -168,7 +168,9 @@ export class UsersComponent {
 
   searchUserById(event: Event): void {
     const id = parseInt((event.target as HTMLInputElement).value);
-    console.log(id)
+    if(id == null || id == undefined || Number.isNaN(id)){
+      return
+    }
     if (id) {
 
       this._appService.getUserById(id).subscribe({
@@ -188,9 +190,7 @@ export class UsersComponent {
         
       });
 
-    } else {
-      this.getUsers();
-    }
+    } 
 
   }
 

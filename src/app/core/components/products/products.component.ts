@@ -79,10 +79,6 @@ export class ProductsComponent {
 
           this.updateProduct(result.data);
         }
-        
-
-        
-        
         // Aquí puedes realizar acciones con los datos editados, si es necesario
       }
     });
@@ -143,9 +139,34 @@ export class ProductsComponent {
   }
 
   searchProductById(event: Event){
-    const value = (event.target as HTMLInputElement).value;
-    console.log(value);
-    this.search = value;
+    const id = parseInt((event.target as HTMLInputElement).value);
+
+    if(id == null || id == undefined || Number.isNaN(id)){
+      return
+    }
+
+    if (id) {
+      this._appService.getProductById(id).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.products = [response];
+          //despues obtener la cookie y luego verificar el token
+        },
+        error: (error: any) => {
+          console.log(error);
+        },
+        complete: () => {
+          console.log('complete');
+        }
+      });
+    }
+
   }
   
+  updateSearch(): void {
+    
+    if(this.search == ''){
+      this.getProducts();
+    }
+  }
 }
