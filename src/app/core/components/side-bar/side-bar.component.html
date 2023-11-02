@@ -1,16 +1,17 @@
-<div class="side-bar">
+<div class="side-bar" [ngClass]="{ 'closed': !isSidebarOpen }">
 
     <div class="title">
-        <h4>ShoeFactory - System</h4>
+        <h4 [ngClass]="{'text-hidden': !isSidebarOpen}">ShoeFactory - System</h4>
+        <button class="menu-btn" (click)="toggleSidebar()">☰</button>
     </div>
 
     <ul class="menu-items">
 
-        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['users']" class="item" routerLink="home/users" routerLinkActive="active-link"><i class="fa-solid fa-users icon"></i>Usuarios</li>
-        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['products']" class="item" routerLink="home/products" routerLinkActive="active-link"><i class="fa-solid fa-boxes-stacked icon"></i>Productos</li>
-        <li [routerLink]="['productions']" class="item" routerLink="home/productions" routerLinkActive="active-link"><i class="fa-solid fa-dolly icon"></i>Producción</li>
-        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['roles']" class="item" routerLink="home/roles" routerLinkActive="active-link"><i class="fa-solid fa-user-gear icon"></i>Roles</li>
-        <li [routerLink]="['search-production']" class="item" routerLink="home/roles" routerLinkActive="active-link"><i class="fa-solid fa-circle-info icon"></i>Consultar Producción</li>
+        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['users']" class="item" routerLink="home/users" routerLinkActive="active-link"><i class="fa-solid fa-users icon"></i><span [ngClass]="{'text-hidden': !isSidebarOpen}">Usuarios</span></li>
+        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['products']" class="item" routerLink="home/products" routerLinkActive="active-link"><i class="fa-solid fa-boxes-stacked icon"></i><span [ngClass]="{'text-hidden': !isSidebarOpen}">Productos</span></li>
+        <li [routerLink]="['productions']" class="item" routerLink="home/productions" routerLinkActive="active-link"><i class="fa-solid fa-dolly icon"></i><span [ngClass]="{'text-hidden': !isSidebarOpen}">Producción</span></li>
+        <li *ngIf="_appService?.userData?.role == 'Administrador'" [routerLink]="['roles']" class="item" routerLink="home/roles" routerLinkActive="active-link"><i class="fa-solid fa-user-gear icon"></i><span [ngClass]="{'text-hidden': !isSidebarOpen}">Roles</span></li>
+        <li [routerLink]="['search-production']" class="item" routerLink="home/roles" routerLinkActive="active-link"><i class="fa-solid fa-circle-info icon"></i><span [ngClass]="{'text-hidden': !isSidebarOpen}">Consultar producción</span></li>
     </ul>
 
 </div>

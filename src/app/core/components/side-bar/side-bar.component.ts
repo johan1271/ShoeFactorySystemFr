@@ -7,8 +7,12 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent {
-  
+  isSidebarOpen = true; 
   constructor(public _appService: AppService) { 
     
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

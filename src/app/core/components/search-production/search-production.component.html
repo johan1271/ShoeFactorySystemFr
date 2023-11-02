@@ -12,7 +12,7 @@
                     <input matInput placeholder="Ex. 12345678-9" formControlName="search" (change)="updateSearch()">
                 </mat-form-field>
 
-                <mat-form-field>
+                <mat-form-field class="date-picker">
                     <mat-label>Ingresa el rango de fechas</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate placeholder="Start date" formControlName="startDate" readonly>

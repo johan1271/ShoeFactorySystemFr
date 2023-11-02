@@ -6,7 +6,7 @@
         .content-form-production {
             .form {
                 display: grid;
-                grid-template-columns: 1fr 0.8fr 0.8fr;
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
                 align-items: center;
                 /* Divide el espacio en 3 columnas iguales */
                 gap: 30px;
@@ -17,7 +17,17 @@
                         background-color: $color-btn-hover;
                     }
                 }
+                .date-picker {
+                    .mat-form-field {
+                        width: 100%;
+                        min-width: 325px;
+                    }
+                }
             }
+            // @media screen and (max-width: 768px) {
+            //     grid-template-columns: 1fr 1fr;
+            //     /* Cambia a 2 columnas en pantallas más pequeñas */
+            // }
         }
         .content-production {
             display: grid;
@@ -149,6 +159,19 @@
             }
         }
     }
+}
+
+@media screen and (max-width: 980px) {
+    .dynamic-content {
+        .content-main {
+            .content-form-production {
+                .form {
+                    gap: 10px;
+                }
+            }
+        }
+    }
+    /* Cambia a 1 columna en pantallas aún más pequeñas */
 }
 
 .mat-mdc-card {

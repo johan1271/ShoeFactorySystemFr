@@ -3,6 +3,9 @@
     //padding: 10px;
     display: grid;
     grid-template-rows: 60px 1fr;
+    width: 250px;
+    transition: width 0.2s;
+    /* Animación de transición suave */
     //background-color: aliceblue;
     height: 100%;
     border-right: 0.5px solid $border-color;
@@ -10,6 +13,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 16px;
         //border-color: 1px solid rgb(219, 219, 219);
         background-color: $color-default-btn;
         border-bottom: 0.5px solid $border-color;
@@ -18,6 +22,20 @@
             align-self: center;
             color: $white;
             //height: 40px;
+        }
+        .menu-btn {
+            border: none;
+            font-size: 25px;
+            background-color: transparent;
+            color: $white;
+            cursor: pointer;
+            border-radius: 30px;
+            padding: 9px;
+            &:hover {
+                transition: background-color 0.3s;
+                transform: scale(1.1);
+                // background-color: $color-btn-hover;
+            }
         }
     }
     .menu-items {
@@ -45,6 +63,15 @@
             // }
         }
     }
+}
+
+.text-hidden {
+    display: none;
+}
+
+.side-bar.closed {
+    width: 75px;
+    /* Ancho cuando está cerrado */
 }
 
 li {
