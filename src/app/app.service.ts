@@ -129,7 +129,7 @@ export class AppService {
 
     let userVerified = this.http.get(`${this.apiUrl}verify/token`, httpOptions).pipe(
       map((response: any) => {
-        console.log(response);
+        
         this.userData = response;
         return response;
       }),

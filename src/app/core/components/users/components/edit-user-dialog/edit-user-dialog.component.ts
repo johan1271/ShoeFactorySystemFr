@@ -17,7 +17,7 @@ export class EditUserDialogComponent {
     this.isCreating = data.isCreating;
     this.user = data.user;
     this.dialogTitle = this.isCreating ? 'Crear usuario' : 'Editar usuario';
-    console.log(this.user)
+    
     this.userForm = this._formBuilder.group({
       id: [this.user.id, [Validators.required]],
       firstName: [this.user.first_name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -40,8 +40,6 @@ export class EditUserDialogComponent {
 
     const formData = this.userForm.getRawValue();
 
-    // Crea un objeto con los datos del formulario
-    //console.log(formData)
     const user: User = {
       id: formData.id,
       first_name: formData.firstName,

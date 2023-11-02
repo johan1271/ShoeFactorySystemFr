@@ -39,7 +39,7 @@ export class SearchProductionComponent {
   getAllProductions() {
     this._appService.getAllProductions().subscribe({
       next: (response: any) => {
-        console.log(response);
+        
         this.loader = false;
         if(Object.keys(response).length === 0){
          //this.snackBar.openSnackBar('No se encontraron resultados', 'Cerrar');
@@ -65,13 +65,13 @@ export class SearchProductionComponent {
     }
     const formData = this.form.value;
     this.loader = true;
-    console.log(formData)
+    
 
     if (!formData.startDate && !formData.endDate) {
 
       this._appService.getProductionById(parseInt(formData.search)).subscribe({
         next: (response: any) => {
-          console.log(response);
+          
           this.loader = false;
           if (Object.keys(response).length === 0) {
             this.snackBar.openSnackBar('No se encontraron resultados', 'Cerrar');
@@ -96,10 +96,10 @@ export class SearchProductionComponent {
 
       this._appService.getProductionByDate(parseInt(formData.search), startDate, endDate).subscribe({
         next: (response: any) => {
-          console.log(response);
+          
 
           if (Object.keys(response).length === 0) {
-            console.log('no hay resultados');
+            
             this.snackBar.openSnackBar('No se encontraron resultados', 'Cerrar');
             this.productions.production = [];
             this.productions.total_compensation = 0;
@@ -154,8 +154,10 @@ export class SearchProductionComponent {
     // Agregar detalles de producción
     doc.setFontSize(12);
     doc.text(`Producto: ${production.name}`, labelXStart + 5, labelYStart + 20);
-    doc.text(`Empleado: ${production.employee_name}`, labelXStart + 5, labelYStart + 30);
-    doc.text(`Compensación: ${production.compensation.toString()}`, labelXStart + 5, labelYStart + 40);
+    doc.text(`Fecha: ${production.date}`, labelXStart + 5, labelYStart + 27);
+    doc.text(`Empleado: ${production.employee_name}`, labelXStart + 5, labelYStart + 34);
+    doc.text(`Rol: ${production.role_name}`, labelXStart + 5, labelYStart + 41);
+    doc.text(`Compensación: ${production.compensation.toString()}`, labelXStart + 5, labelYStart + 48);
 
     // Generar y mostrar un código de barras ficticio
     const barcodeValue = this.generateUUID(); // Valor ficticio del código de barras
@@ -200,23 +202,15 @@ export class SearchProductionComponent {
     let labelsOnPage = 0;
   
     for (let i = 0; i < this.productions.production.length; i++) {
+
+      if(this.productions.production[i].quantity< 12){
+        continue;
+      }
+
       if (labelsOnPage >= labelsPerPage) {
         doc.addPage();
         labelsOnPage = 0;
       }
-  
-      // if (labelsOnPage % labelsPerRow === 0) {
-      //   // Agregar un cuadro alrededor de cada etiqueta
-      //   doc.setLineWidth(0.5); // Grosor de la línea
-      //   doc.rect(labelXStart - 4, labelYStart - 7, labelWidth, labelHeight + 8);
-  
-      //   // Agregar una línea separadora debajo del código de barras
-      //   doc.setLineWidth(0.5); // Grosor de la línea
-      //   doc.line(labelXStart - 4, labelYStart + labelHeight + 1, labelXStart + labelWidth + 4, labelYStart + labelHeight + 1);
-  
-      //   doc.setLineWidth(0);
-      // }
-      
 
       const x = labelXStart + (labelsOnPage % labelsPerRow) * (labelWidth + spacing);
       const y = labelYStart + Math.floor(labelsOnPage / labelsPerRow) * (labelHeight + spacing);
@@ -251,7 +245,9 @@ export class SearchProductionComponent {
       // Agregar detalles de producción
       doc.setFontSize(8);
       doc.text(`Producto: ${this.productions.production[i].name}`, x, y + 10);
+      doc.text(`Fecha: ${this.productions.production[i].date}`, x, y + 15);
       doc.text(`Empleado: ${this.productions.production[i].employee_name}`, x, y + 20);
+      doc.text(`Rol: ${this.productions.production[i].role_name}`, x, y + 25);
       doc.text(`Compensación: ${this.productions.production[i].compensation.toString()}`, x, y + 30);
   
       // Generar y mostrar un código de barras ficticio

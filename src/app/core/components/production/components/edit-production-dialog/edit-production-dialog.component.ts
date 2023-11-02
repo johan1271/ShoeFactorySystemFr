@@ -25,7 +25,7 @@ export class EditProductionDialogComponent {
     this.dialogTitle = this.isCreating ? 'Crear producción' : 'Editar producción';
     this.selectedUser = this.production.user_id
     this.selectedProduct = this.production.product_id;
-    console.log(this.production)
+    
     this.users = []
     this.products = [];
 
@@ -39,7 +39,7 @@ export class EditProductionDialogComponent {
     
     if(this._appService.userData.role != 'Administrador'){
       this.productionForm.controls['user'].setValue(this._appService.userData.id);
-      console.log(this._appService.userData.id)
+      
       this.productionForm.controls['user'].disable();
     }
 
@@ -57,7 +57,7 @@ export class EditProductionDialogComponent {
   getUsers(): void {
     this._appService.getUsers().subscribe({
       next: (response: any) => {
-        console.log(response)
+        
         //this.loader = false;
         this.users = response;
         
@@ -75,7 +75,7 @@ export class EditProductionDialogComponent {
   getProducts(): void {
     this._appService.getProducts().subscribe({
       next: (response: any) => {
-        console.log(response)
+       
         //this.loader = false;
         this.products = response;
 
@@ -103,7 +103,7 @@ export class EditProductionDialogComponent {
     }
 
     const formData = this.productionForm.getRawValue();
-    console.log(formData)
+   
     // Crea un objeto con los datos del formulario
     
 

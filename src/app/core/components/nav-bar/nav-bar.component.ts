@@ -33,7 +33,7 @@ export class NavBarComponent {
   }
 
   logOut(){
-    console.log('logOut')
+    
     this.cookieService.delete('userToken');
     
     window.location.reload();

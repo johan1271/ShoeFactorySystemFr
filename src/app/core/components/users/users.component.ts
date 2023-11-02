@@ -44,7 +44,7 @@ export class UsersComponent {
   getUsers(): void {
     this._appService.getUsers().subscribe({
       next: (response: any) => {
-        console.log(response)
+        
         this.loader = false;
         this.users = response;
         //despues obtener la cookie y luego verificar el token
@@ -58,9 +58,7 @@ export class UsersComponent {
 
         }
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
   }
 
@@ -102,10 +100,10 @@ export class UsersComponent {
   createUser(result: any): void {
     let user = result.data;
     const { role, active, ...newUser } = user;
-    console.log(newUser)
+    
     this._appService.addUsers(newUser).subscribe({
       next: (response: any) => {
-        console.log(response)
+        
         response.role = this.getRoleById(response.role_id);
         this.users = [...this.users, response];
         this._snackBar.openSnackBar('Usuario creado correctamente', 'Cerrar', 5000);
@@ -119,9 +117,7 @@ export class UsersComponent {
         }
 
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
   }
 
@@ -130,7 +126,7 @@ export class UsersComponent {
     const { role, ...newUser } = user;
     this._appService.putUsers(newUser).subscribe({
       next: (response: any) => {
-        console.log(response)
+        
         response.role = this.getRoleById(response.role_id);
         const index = this.users.findIndex(role => role.id === response.id);
         this.users[index] = response;
@@ -145,11 +141,9 @@ export class UsersComponent {
         }
 
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
-    console.log(result)
+    
   }
 
 
@@ -175,7 +169,7 @@ export class UsersComponent {
 
       this._appService.getUserById(id).subscribe({
         next: (response: any) => {
-          console.log(response)
+          
           this.users = [response];
           //despues obtener la cookie y luego verificar el token
         },

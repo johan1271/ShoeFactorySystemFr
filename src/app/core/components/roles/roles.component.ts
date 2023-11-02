@@ -34,7 +34,7 @@ export class RolesComponent {
   getRoles(): void {
     this._appService.getRoles().subscribe({
       next: (response: any) => {
-        console.log(response);
+        
         this.loader = false;
         this.roles = response;
         //despues obtener la cookie y luego verificar el token
@@ -42,9 +42,7 @@ export class RolesComponent {
       error: (error: any) => {
         console.log(error);
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
   }
 
@@ -100,10 +98,10 @@ export class RolesComponent {
   }
 
   updateRoles(result:any){
-    console.log(result)
+    
     this._appService.updateRoles(result).subscribe({
       next: (response: any) => {
-        console.log(response);
+        
         const index = this.roles.findIndex(role => role.id === response.id);
         this.roles[index] = response;
         this._snackBar.openSnackBar('Rol actualizado', 'Cerrar');
@@ -129,15 +127,13 @@ export class RolesComponent {
     if (id) {
       this._appService.getRoleById(id).subscribe({
         next: (response: any) => {
-          console.log(response);
+          
           this.roles = [response];
         },
         error: (error: any) => {
           console.log(error);
         },
-        complete: () => {
-          console.log('complete');
-        }
+        
       });
     }
   }

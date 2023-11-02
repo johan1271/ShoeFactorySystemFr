@@ -15,12 +15,10 @@ export class AuthGuard implements CanActivate {
       // Hacer una solicitud asincrónica para verificar el token
       this._appService.getVerifyToken().subscribe({
         next: (response: any) => {
-          console.log(response);
-          console.log(this.router.url);
 
           if (this.router.url === '/home/users' && response.role === 'Administrador' || this.router.url == '/home/products' && response.role === 'Administrador' || this.router.url == '/home/roles' && response.role === 'Administrador' || this.router.url === '/home/search-production') {
             // El usuario tiene permiso, permite el acceso
-            console.log('El usuario tiene permiso, permite el acceso');
+            
             return true;
           } else {
             // El usuario no tiene permiso, redirige a otra página

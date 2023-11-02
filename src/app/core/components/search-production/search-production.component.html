@@ -46,22 +46,41 @@
                         </button>
                     </div>
 
-                    <span class="user-name">{{ production.employee_name }}</span>
+                    <div class="content-employee">
+                        <div class="name-content">
+                            <mat-icon class="icon">person</mat-icon>
+                            <span class="user-name">{{ production.employee_name }}</span>
+                        </div>
+
+                        <span class="line">-</span>
+                        <span class="user-role">{{ production.role_name }}</span>
+                    </div>
+
 
                     <div class="content-fields">
                         <div class="box-atr">
                             <span class="attribute">{{ production.name }}</span>
                             <span class="label-atr">Producto</span>
                         </div>
+
                         <div class="box-atr">
                             <span class="attribute">{{ production.quantity }}</span>
                             <span class="label-atr">Cantidad</span>
                         </div>
 
+
+                    </div>
+
+                    <div class="content-fields-2">
                         <div class="box-atr">
-                            <span class="attribute">{{ production.compensation.toString() | truncateText: 6 }}</span>
-                            <span class="label-atr">Comp.</span>
+                            <span class="attribute">{{ production.compensation.toString() | truncateText: 10 }}</span>
+                            <span class="label-atr">Compensación</span>
                         </div>
+                        <div class="box-atr">
+                            <span class="attribute">{{ production.date }}</span>
+                            <span class="label-atr">Fecha</span>
+                        </div>
+
 
                     </div>
 

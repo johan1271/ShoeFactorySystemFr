@@ -37,14 +37,14 @@ export class EditProductDialogComponent {
   onSaveClick(): void {
     // Puedes realizar acciones de guardado aquí, por ejemplo, enviar el formulario al servidor
     if(this.productForm.invalid){
-      console.log(this.productForm)
+      
       // Marca todos los campos como tocados para que se muestren los mensajes de error
       this.productForm.markAllAsTouched();
       return;
     }
 
     const formData = this.productForm.value;
-    console.log(formData)
+    
     // Crea un objeto con los datos del formulario
     const product: Product = {
       id: this.product.id,

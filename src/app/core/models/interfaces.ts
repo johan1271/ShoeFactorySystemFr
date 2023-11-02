@@ -50,6 +50,8 @@ export interface userProduction {
     quantity: number;
     price: number;
     unit_price: number;
+    role_name: string;
+    date: string;
 }
 
 export interface productionsByUser {

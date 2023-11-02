@@ -37,7 +37,7 @@ export class ProductsComponent {
   getProducts(): void {
     this._appService.getProducts().subscribe({
       next: (response: any) => {
-        console.log(response);
+        
         this.loader = false;
         this.products = response;
         //despues obtener la cookie y luego verificar el token
@@ -45,9 +45,7 @@ export class ProductsComponent {
       error: (error: any) => {
         console.log(error);
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
   }
 
@@ -67,7 +65,7 @@ export class ProductsComponent {
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(result);
+      
       if (result) {
         
 
@@ -90,8 +88,8 @@ export class ProductsComponent {
     
     this._appService.addProducts(product).subscribe({
       next: (response: any) => {
-        console.log(response)
-       //response.role = this.getRoleById(response.role_id);
+        
+       
         this.products = [...this.products, response];
         this._snackBar.openSnackBar('Producto creado correctamente', 'Cerrar', 5000);
         this.table.renderRows();
@@ -104,9 +102,7 @@ export class ProductsComponent {
         }
 
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
   }
 
@@ -115,7 +111,7 @@ export class ProductsComponent {
     
     this._appService.putProducts(product).subscribe({
       next: (response: any) => {
-        console.log(response)
+        
         //response.role = this.getRoleById(response.role_id);
         const index = this.products.findIndex(p => p.id === response.id);
         
@@ -132,9 +128,7 @@ export class ProductsComponent {
         }
 
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
     });
   }
 
@@ -148,16 +142,14 @@ export class ProductsComponent {
     if (id) {
       this._appService.getProductById(id).subscribe({
         next: (response: any) => {
-          console.log(response);
+          
           this.products = [response];
           //despues obtener la cookie y luego verificar el token
         },
         error: (error: any) => {
           console.log(error);
         },
-        complete: () => {
-          console.log('complete');
-        }
+        
       });
     }
 

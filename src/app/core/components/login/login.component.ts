@@ -22,7 +22,7 @@ export class LoginComponent {
   ngOnInit(): void {
     //this.getLogin()
     if(this.cookieService.check('userToken')){
-      console.log("entra aca")
+      
       this._router.navigate(['/home/productions']);
       return
     }
@@ -43,7 +43,7 @@ export class LoginComponent {
     
     this._appService.getLogin(userId).subscribe({
       next: (response: any) => {
-        console.log(response);
+        
         this.loading = false;
         this.cookieService.set('userToken', response);
         this._router.navigate(['/home/productions']);
@@ -51,7 +51,7 @@ export class LoginComponent {
       },
       error: (error: any) => {
         console.log(error);
-
+ 
         if(error.status == 404){
           this._snackBar.openSnackBar('El usuario no existe', 'Cerrar', 5000);
         }

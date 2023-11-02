@@ -40,7 +40,7 @@ export class ProductionComponent {
   
     this._appService.getProduction().subscribe({
       next: (response: any) => {
-        console.log(response)
+        
         this.loader = false;
         this.productions = response;
       },
@@ -52,9 +52,7 @@ export class ProductionComponent {
         }
 
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
   
     });      
   }
@@ -71,7 +69,7 @@ export class ProductionComponent {
         isCreating, 
         userProduction: userProduction ? userProduction : {} 
       }, // Puedes pasar datos al componente de diálogo
-      //position: { top: '60px', left: '60px' }
+      
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -86,8 +84,6 @@ export class ProductionComponent {
       } else {
 
         this.updateProduction(result.data);
-      
-        // Aquí puedes realizar acciones con los datos editados, si es necesario
       }
 
     });
@@ -96,7 +92,7 @@ export class ProductionComponent {
   createProduction(result: any){
     let production = result;
     const {id, ...newProduction} = production;
-    console.log(newProduction)
+    
     this._appService.addProduction(newProduction).subscribe({
       next: (response: any) => {
         console.log(response)
@@ -119,20 +115,18 @@ export class ProductionComponent {
         }
 
       },
-      complete: () => {
-        console.log('complete');
-      }
+      
   
     });      
   }
 
   updateProduction(result: any){
-    console.log(result)
+    
     
     
     this._appService.updateProduction(result).subscribe({
       next: (response: any) => {
-        console.log(response)
+        
         this._snackBar.openSnackBar('Produccion actualizada correctamente', 'Cerrar');
         this.getProduction();
         
@@ -165,7 +159,7 @@ export class ProductionComponent {
     if (id) {
       this._appService.getAllProductionsById(id).subscribe({
         next: (response: any) => {
-          console.log(response);
+          
           this.productions = [response];
         },
         error: (error: any) => {
