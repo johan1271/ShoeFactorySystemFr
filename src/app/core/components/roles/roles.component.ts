@@ -87,7 +87,9 @@ export class RolesComponent {
         this.table.renderRows();
       },
       error: (error: any) => {
-
+        if(error.status == 500){
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+        }
         if(error.status === 422){
           this._snackBar.openSnackBar('Ya existe este rol', 'Cerrar');
         } 
@@ -112,6 +114,9 @@ export class RolesComponent {
         if(error.status === 422){
           alert('Ya existe');
         } 
+        if(error.status == 500){
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+        }
         console.log(error);
       },
       
@@ -132,6 +137,9 @@ export class RolesComponent {
         },
         error: (error: any) => {
           console.log(error);
+          if(error.status == 500){
+            this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+          }
         },
         
       });

@@ -106,8 +106,7 @@ export class ProductionComponent {
         console.log(error);
 
         if(error.status == 500){
-          //window.location.reload();
-          //codigo para recargar la pagina automaticamente
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
         }
 
         if(error.status == 422){
@@ -137,8 +136,7 @@ export class ProductionComponent {
         console.log(error);
 
         if(error.status == 500){
-          window.location.reload();
-          //codigo para recargar la pagina automaticamente
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
         }
 
         if(error.status == 422){
@@ -164,6 +162,9 @@ export class ProductionComponent {
         },
         error: (error: any) => {
           console.log(error);
+          if(error.status == 500){
+            this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+          }
         },
   
       });

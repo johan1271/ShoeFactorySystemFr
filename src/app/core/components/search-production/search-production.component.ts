@@ -18,7 +18,7 @@ export class SearchProductionComponent {
 
   productions: productionsByUser;
   loader: boolean = true;
-  constructor(private formBuilder: FormBuilder, public _appService: AppService, private snackBar: SnackBarService) {
+  constructor(private formBuilder: FormBuilder, public _appService: AppService, private _snackBar: SnackBarService) {
     this.form = this.formBuilder.group({
       search: ['', [Validators.required]],
 
@@ -52,6 +52,9 @@ export class SearchProductionComponent {
       },
       error: (error: any) => {
         console.log(error);
+        if(error.status == 500){
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+        }
       }
     })
   }
@@ -60,7 +63,7 @@ export class SearchProductionComponent {
 
 
     if (this.form.invalid) {
-      this.snackBar.openSnackBar('Debe llenar el campo de busqueda', 'Cerrar');
+      this._snackBar.openSnackBar('Debe llenar el campo de busqueda', 'Cerrar');
       return;
     }
     const formData = this.form.value;
@@ -74,7 +77,7 @@ export class SearchProductionComponent {
           
           this.loader = false;
           if (Object.keys(response).length === 0) {
-            this.snackBar.openSnackBar('No se encontraron resultados', 'Cerrar');
+            this._snackBar.openSnackBar('No se encontraron resultados', 'Cerrar');
             this.productions.production = [];
             this.productions.total_compensation = 0;
             return;
@@ -86,6 +89,9 @@ export class SearchProductionComponent {
         },
         error: (error: any) => {
           console.log(error);
+          if(error.status == 500){
+            this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+          }
         }
       })
 
@@ -100,7 +106,7 @@ export class SearchProductionComponent {
 
           if (Object.keys(response).length === 0) {
             
-            this.snackBar.openSnackBar('No se encontraron resultados', 'Cerrar');
+            this._snackBar.openSnackBar('No se encontraron resultados', 'Cerrar');
             this.productions.production = [];
             this.productions.total_compensation = 0;
             return;
@@ -112,12 +118,15 @@ export class SearchProductionComponent {
         },
         error: (error: any) => {
           console.log(error);
+          if(error.status == 500){
+            this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+          }
         }
       })
 
     } else {
       this.loader = false;
-      this.snackBar.openSnackBar('Debe llenar los campos de fecha', 'Cerrar');
+      this._snackBar.openSnackBar('Debe llenar los campos de fecha', 'Cerrar');
     }
   }
 

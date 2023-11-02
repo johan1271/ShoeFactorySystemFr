@@ -51,7 +51,9 @@ export class LoginComponent {
       },
       error: (error: any) => {
         console.log(error);
- 
+        if(error.status == 500){
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+        }
         if(error.status == 404){
           this._snackBar.openSnackBar('El usuario no existe', 'Cerrar', 5000);
         }

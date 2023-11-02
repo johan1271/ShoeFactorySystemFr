@@ -44,6 +44,9 @@ export class ProductsComponent {
       },
       error: (error: any) => {
         console.log(error);
+        if(error.status == 500){
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+        }
       },
       
     });
@@ -98,7 +101,7 @@ export class ProductsComponent {
         
 
         if(error.status == 500){
-          window.location.reload();
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
         }
 
       },
@@ -124,7 +127,7 @@ export class ProductsComponent {
         console.log(error);
 
         if(error.status == 500){
-          window.location.reload();
+          this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
         }
 
       },
@@ -148,6 +151,9 @@ export class ProductsComponent {
         },
         error: (error: any) => {
           console.log(error);
+          if(error.status == 500){
+            this._snackBar.openSnackBar('Error en el servidor', 'Cerrar', 5000);
+          }
         },
         
       });
