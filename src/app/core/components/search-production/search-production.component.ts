@@ -258,7 +258,7 @@ export class SearchProductionComponent {
       doc.text(`Empleado: ${this.productions.production[i].employee_name}`, x, y + 20);
       doc.text(`Rol: ${this.productions.production[i].role_name}`, x, y + 25);
       doc.text(`Compensación: ${this.productions.production[i].compensation.toString()}`, x, y + 30);
-  
+      
       // Generar y mostrar un código de barras ficticio
       const barcodeValue = this.generateUUID(); // Valor ficticio del código de barras
       const canvas = document.createElement('canvas');
@@ -273,7 +273,8 @@ export class SearchProductionComponent {
   
       labelsOnPage++;
     }
-  
+    doc.setFontSize(10);
+    doc.text(`Compensación total: ${this.productions.total_compensation.toString()}`, 150, 20);
     doc.save('etiquetas.pdf');
   }
 
